@@ -1,0 +1,33 @@
+Design Document:
+
+Classes:
+
+Main: Main includes only the necessary start function that is needed for JavaFX which is the GUI used for this implementation.
+
+Bank: The bank class is a class that has the core data of the program. There is stored the list of customers and the BankManager which is preset to be "Christine Papadakis". Also, in this class is the core of the GUI that is used in this ATM. This design decision was taken in order to keep all the other components GUI-free in order to make them highly reusable without any changes in any future different applications that may not use a GUI and may use a terminal for user interaction or a REST architectural style for an online application.
+
+BankManagerAccount: A class representing a Bank manager and the basic operations that he may like to perform.
+
+CustomerAccount: A class representing the account of a customer. Includes data like the person who is the owner of this account, the checking accounts that he may have, the savings accounts that he may have, the loans that he may have, the transactions he has made and the collateral. Of course, functionality to add, remove and modify any of the former data is included.
+
+Currency: A class representing the currency of an amount of money. In order to add/modify easily the currencies and the rates this class includes two static maps which map the available currencies abbreviations to the currencies full name and the abbreviations to their currency rate comparing to USD. The implementation is designed in such a way that in order to add a new currency to the system the only thing the administrator has to do is to modify those two maps, all the other related functionality is implemented in an adaptable way. The implementation has as a base system the USD and translates all the other currencies based on this and their respective rates.
+
+Transaction: An abstract class that groups the very common functionalities all kind of transactions have. That includes an amount, a sender, a receiver, a currency and a date that this transaction occurred.
+
+Deposit: A class that extends the above. The main extra functionality that it provides is a unique way of printing which obviously is different for every kind of transaction.
+
+Withdrawal: A class that extends Transaction. The main extra functionality that it provides is a unique way of printing which obviously is different for every kind of transaction.
+
+Transfer: A class that extends Transaction. The main extra functionality that it provides is a unique way of printing which obviously is different for every kind of transaction.
+
+Loan: A class representing a loan of a customer. It encapsulates data as the initial amount of the loan, the current debt, the currency of the loan and the interest as well as all the core functionality needed for this data.
+
+Account: An abstract class that includes all the data that every kind of bank account need. That is the balance of the account, the account number, the routing number of the account, the currency, whether is active or not, the fee that it costs to be created and the fee to be closed. Of course, all the respective functionality to access and modify this data is provided.
+
+CheckingAccount: A class that extends the above. The main additions it provides in the above functionality is that it enables to the administrator to set the transactions fees and the withdrawal fees. With that in mind, some parent methods are overridden to adapt to that functionality.
+
+SavingsAccount: A class that extends Account. The main addition in this class is the interest that a savings account has, and the respective functionality needed for it.
+
+Person: A typical class implemented from previous homeworks representing a person and its core functions.
+
+Name: A typical class implemented from previous homeworks representing a name and its core functions.
