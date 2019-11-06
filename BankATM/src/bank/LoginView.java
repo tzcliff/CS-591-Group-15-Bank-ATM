@@ -18,24 +18,26 @@ public class LoginView  extends JPanel{
 	
 	private JLabel emailLabel;
 	private JLabel passwordLabel;
-	private JTextField emailTextField;
-	private JPasswordField passwordTextField;	
+	private JTextField fNAmeTextField;
+	private JPasswordField lNameTextField;	
 	private JButton loginButton;
 	private JButton newButton;
+	private JButton loginManagerButton;
 	private JLabel msgLabel;
 	private JLabel headerLabel;
 	
 	public LoginView()
 	{
 		headerLabel = new JLabel("Please log in");
-		emailLabel = new JLabel("Email", JLabel.TRAILING);		
-		emailTextField = new JTextField(20);
-		emailLabel.setLabelFor(emailTextField);
-		passwordLabel = new JLabel("Password", JLabel.TRAILING);
-		passwordTextField = new JPasswordField(20);
-		passwordLabel.setLabelFor(passwordTextField);
-		loginButton = new JButton("Sign in");
+		emailLabel = new JLabel("First Name", JLabel.TRAILING);		
+		fNAmeTextField = new JTextField(20);
+		emailLabel.setLabelFor(fNAmeTextField);
+		passwordLabel = new JLabel("Last Name", JLabel.TRAILING);
+		lNameTextField = new JPasswordField(20);
+		passwordLabel.setLabelFor(lNameTextField);
+		loginButton = new JButton("Sign Customer");
 		newButton = new JButton("New User");
+		loginManagerButton = new JButton("Login Manager");
 		msgLabel = new JLabel("");
 		
 		JPanel jp = new JPanel(new SpringLayout());
@@ -46,9 +48,9 @@ public class LoginView  extends JPanel{
         gbc.fill = GridBagConstraints.HORIZONTAL;
 	    
 		jp.add(emailLabel);		
-		jp.add(emailTextField);
+		jp.add(fNAmeTextField);
 		jp.add(passwordLabel);
-		jp.add(passwordTextField);
+		jp.add(lNameTextField);
 		//jp.add(loginButton);
 		//jp.add(msgLabel);
 		
@@ -62,9 +64,36 @@ public class LoginView  extends JPanel{
 		this.add(msgLabel, gbc);
 		this.add(loginButton,gbc);
 		this.add(newButton,gbc);
+		this.add(loginManagerButton,gbc);
 		
 	}
 	
+	
+	
+	public JTextField getfNAmeTextField() {
+		return fNAmeTextField;
+	}
+
+
+
+	public void setfNAmeTextField(JTextField fNAmeTextField) {
+		this.fNAmeTextField = fNAmeTextField;
+	}
+
+
+
+	public JPasswordField getlNameTextField() {
+		return lNameTextField;
+	}
+
+
+
+	public void setlNameTextField(JPasswordField lNameTextField) {
+		this.lNameTextField = lNameTextField;
+	}
+
+
+
 	public JLabel getEmailLabel() {
 		return emailLabel;
 	}
@@ -85,14 +114,7 @@ public class LoginView  extends JPanel{
 	}
 
 
-	public JTextField getEmailTextField() {
-		return emailTextField;
-	}
-
-
-	public void setEmailTextField(JTextField emailTextField) {
-		this.emailTextField = emailTextField;
-	}
+	
 
 
 	public JLabel getMsgLabel() {
@@ -103,9 +125,7 @@ public class LoginView  extends JPanel{
 		this.msgLabel.setText(msgLabel);
 	}
 
-	public JTextField getPasswordTextField() {
-		return passwordTextField;
-	}
+	
 
 
 	public JButton getLoginButton() {
@@ -124,5 +144,14 @@ public class LoginView  extends JPanel{
 	public void setNewButton(JButton newButton) {
 		this.newButton = newButton;
 	}
+
+	public JButton getLoginManagerButton() {
+		return loginManagerButton;
+	}
+
+	public void setLoginManagerButton(JButton loginManagerButton) {
+		this.loginManagerButton = loginManagerButton;
+	}
+	
 	
 }

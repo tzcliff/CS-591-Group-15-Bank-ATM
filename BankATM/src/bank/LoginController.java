@@ -25,6 +25,10 @@ public class LoginController {
 		parentPanel.add(loginView, BorderLayout.CENTER);
 		//LoggedUser.ClearData();
 		PanelData.setSidePanel(new JPanel());
+
+
+
+
 		initController();
 	}
 
@@ -32,10 +36,18 @@ public class LoginController {
 	{
 		loginView.getLoginButton().addActionListener(l -> Login());
 		loginView.getNewButton().addActionListener(l -> AddUser());
+		loginView.getLoginManagerButton().addActionListener(l -> loginManager());
 	}
 
 	public void Login()
 	{
+		Person p = new Person(loginView.getfNAmeTextField().getText(), loginView.getlNameTextField().getText());
+		if (Data.getBank().loginCustomer(p) != null)
+		{
+			custSideView.setVisible(true);	
+			PanelData.setSidePanel(custSideView);
+		}
+		//var cust = Bank
 		/*
 		loginModel.setEmail(loginView.getEmailTextField().getText());
 		loginModel.setPassword(loginView.getPasswordTextField().getText());
@@ -78,14 +90,14 @@ public class LoginController {
 				ProfileController poController = new ProfileController();
 				poController.ShowProfileList();
 			}
-			
+
 
 		}else
 		{
 			loginView.setMsgLabel("Wrong email or password");
 		}
 
-*/
+		 */
 
 	}
 
@@ -94,6 +106,12 @@ public class LoginController {
 		//ProfileController proController = new ProfileController();
 		//proController.setNew(true);
 		//proController.showLoggedUserProfile();
+	}
+
+	public void loginManager()
+	{
+		managerSideView.setVisible(true);		
+		PanelData.setSidePanel(managerSideView);
 	}
 
 }
