@@ -22,6 +22,7 @@ public class CustomerAccount {
     private ArrayList<SavingsAccount> savingsAccounts;
     private ArrayList<Loan> loans;
     private ArrayList<Transaction> transactions;
+    private ArrayList<SecurityAccount> securityAccounts;
     private boolean collateral;
 
     public CustomerAccount(Person person, boolean collateral) {
@@ -31,6 +32,7 @@ public class CustomerAccount {
         this.savingsAccounts = new ArrayList<SavingsAccount>();
         this.transactions = new ArrayList<Transaction>();
         this.loans= new ArrayList<Loan>();
+        this.securityAccounts = new ArrayList<SecurityAccount>();
     }
 
     public CustomerAccount(Person person) {
@@ -52,6 +54,16 @@ public class CustomerAccount {
         Currency currency = new Currency("USD");
         savingsAccounts.add(new SavingsAccount(0.0f, 0, SavingsAccount.getNewAccountUniqueNumber(), true, currency,
                 0.0f, 0.0f, 0.0f));
+    }
+
+    public boolean addNewSecurityAccount(Float securityBalanceThreshold){
+        Currency currency = new Currency("USD");
+        // If the user is eligible for a new security account open it and return true, otherwise false
+        if (eligibleToOpenSecurityAccount(securityBalanceThreshold)){
+            securityAccounts.add(new SecurityAccount(0f, 0, SecurityAccount.getNewAccountUniqueNumber(), true, currency,
+                    0f, 0f));
+        }
+        return false;
     }
 
     public boolean addNewLoan(Float amount, Currency currency){
@@ -250,5 +262,32 @@ public class CustomerAccount {
 
     public ArrayList<SavingsAccount> getSavingsAccounts() {
         return savingsAccounts;
+    }
+
+    // Method that checks if the total amount of money the user has is enough to trust him with a security account.
+    // To determine that we sum up all the money that he has over all of his accounts, we deduct from that amount
+    // any loans he owes and if the final amount is bigger or equal to the securityBalanceThreshold that the manager requires
+    // then we return true, otherwise false
+    public boolean eligibleToOpenSecurityAccount(Float securityBalanceThreshold){
+        Float totalBalance = 0f;
+        for (CheckingAccount checkingAcc :
+                checkingAccounts) {
+            totalBalance += checkingAcc.getBalanceInLocalCurrency();
+        }
+
+        for (SavingsAccount savingAcc :
+                savingsAccounts) {
+            totalBalance += savingAcc.getBalanceInLocalCurrency();
+        }
+
+        for (Loan loan :
+                loans) {
+            totalBalance -= loan.getDebtInLocalCurrency();
+        }
+
+        if (totalBalance >= securityBalanceThreshold){
+            return true;
+        }
+        return false;
     }
 }

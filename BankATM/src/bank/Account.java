@@ -22,8 +22,8 @@ public abstract class Account {
     private int accountNumber;
     private boolean active;
     private Currency currency;
-    protected Float openingCharge;
-    protected Float closingCharge;
+    protected Float openingCharge; //TODO: add this charge when creating new account
+    protected Float closingCharge; //TODO: add this charge when creating new account
 
     public Account(Float balanceInLocalCurrency, int routingNumber, int accountNumber, boolean active, Currency currency, Float closingCharge, Float openingCharge) {
         this.balanceInLocalCurrency = balanceInLocalCurrency;
@@ -61,7 +61,7 @@ public abstract class Account {
         return accountNumber;
     }
 
-    // For example to change currency to euro call this method changeCurrencyTo(EUR)
+    // For example to change currency to euro call this method changeCurrencyTo("EUR")
     public void changeCurrencyTo(String abbreviation){
         currency.setCurrency(abbreviation);
     }
