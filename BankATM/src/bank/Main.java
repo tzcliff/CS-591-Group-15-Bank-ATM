@@ -5,11 +5,25 @@
  * */
 package bank;
 
+import javax.swing.JFrame;
+
 public class Main {
+	
+	
 
     public static void main(String[] args) {
         Person manager = new Person("Christine", "Papadakis");
         BankManagerAccount managerAccount = new BankManagerAccount(manager);
         Bank bank = new Bank(managerAccount);
+        
+        Data.setBank(bank);
+        
+        WindowsBuilder w = new WindowsBuilder();
+       
+        
     }
+    
+   
 }
+
+// adding the my code
