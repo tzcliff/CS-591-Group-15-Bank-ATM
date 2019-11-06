@@ -175,7 +175,14 @@ public class Bank {
     private BankManagerAccount bankManagerAccount;
     private CustomerAccount currentCustomer; // The user that is currently logged in
 
-    public Bank(BankManagerAccount bankManagerAccount) {
+    
+    public ArrayList<CustomerAccount> getCustomerAccounts() {
+		return customerAccounts;
+	}
+
+
+
+	public Bank(BankManagerAccount bankManagerAccount) {
         this.customerAccounts = new ArrayList<CustomerAccount>();
         this.bankManagerAccount = bankManagerAccount;
     }

@@ -99,7 +99,7 @@ public class CustomerSideBarView extends JPanel {
 		});
 		logOutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {    	
-				//NewLoginController loginController = new NewLoginController();
+				LoginController loginController = new LoginController();
 			}
 		});
 	}
