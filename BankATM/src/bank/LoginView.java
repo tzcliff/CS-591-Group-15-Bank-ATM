@@ -19,7 +19,7 @@ public class LoginView  extends JPanel{
 	private JLabel emailLabel;
 	private JLabel passwordLabel;
 	private JTextField fNAmeTextField;
-	private JPasswordField lNameTextField;	
+	private JTextField lNameTextField;	
 	private JButton loginButton;
 	private JButton newButton;
 	private JButton loginManagerButton;
@@ -33,7 +33,7 @@ public class LoginView  extends JPanel{
 		fNAmeTextField = new JTextField(20);
 		emailLabel.setLabelFor(fNAmeTextField);
 		passwordLabel = new JLabel("Last Name", JLabel.TRAILING);
-		lNameTextField = new JPasswordField(20);
+		lNameTextField = new JTextField(20);
 		passwordLabel.setLabelFor(lNameTextField);
 		loginButton = new JButton("Sign Customer");
 		newButton = new JButton("New User");
@@ -82,7 +82,7 @@ public class LoginView  extends JPanel{
 
 
 
-	public JPasswordField getlNameTextField() {
+	public JTextField getlNameTextField() {
 		return lNameTextField;
 	}
 

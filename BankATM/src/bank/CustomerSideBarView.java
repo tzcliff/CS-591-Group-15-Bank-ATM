@@ -60,19 +60,15 @@ public class CustomerSideBarView extends JPanel {
 		});
 		
 		accListButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				//JPanel pa =  new ProfileView();		    	
-				//AccountController accController = new AccountController();
-		        //accController.accountList();
+			public void actionPerformed(ActionEvent e) {    	
+				AccountController accController = new AccountController();
+		        accController.accountList();
 				
 			}
 		});
 		
 		loanListButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				//JPanel pa =  new ProfileView();		    	
+			public void actionPerformed(ActionEvent e) {	    	
 				//LoanController loanController = new LoanController();
 		        
 				
@@ -80,9 +76,8 @@ public class CustomerSideBarView extends JPanel {
 		});
 		newAccButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				//AccountController accController = new AccountController();
-		        //accController.newAccount();
+				AccountController accController = new AccountController();
+		        accController.newAccount();
 		        
 				
 			}

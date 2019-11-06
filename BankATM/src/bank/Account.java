@@ -125,4 +125,11 @@ public abstract class Account {
     public void setCurrency(Currency currency) {
         this.currency = currency;
     }
+    
+    public boolean equals(Account o) { 
+		if (o.accountUniqueID == accountUniqueID )
+			return true;
+		
+		return false;
+	}
 }

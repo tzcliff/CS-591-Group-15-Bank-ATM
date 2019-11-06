@@ -49,6 +49,7 @@ public class LoginController {
 		{
 			custSideView.setVisible(true);	
 			PanelData.setSidePanel(custSideView);
+			LoggedUser.setProfile(loggedUser);
 			ProfileController proController = new ProfileController();
 			proController.showLoggedUserProfile(loggedUser);
 		}
