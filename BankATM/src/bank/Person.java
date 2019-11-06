@@ -16,4 +16,10 @@ public class Person {
     public String toString() {
         return name.toString();
     }
+
+	public Name getName() {
+		return name;
+	}
+
+	
 }

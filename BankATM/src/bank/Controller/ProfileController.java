@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 import bank.CustomerAccount;
 import bank.Data;
+import bank.LoggedUser;
 import bank.PanelData;
 import bank.Person;
 import bank.View.ProfileListView;
@@ -45,7 +46,9 @@ public class ProfileController {
 			((ProfileView)profileView).setMsgLabel("Data Saved. Please log in");
 		}else
 		{
-			
+		    LoggedUser.getProfile().getPerson().getName().setFirstName(((ProfileView)profileView).getFirstNameTextField().getText());
+		    LoggedUser.getProfile().getPerson().getName().setLastName(((ProfileView)profileView).getLastNameTextField().getText());
+		    ((ProfileView)profileView).setMsgLabel("Data Saved");
 		}
 		
 	}
@@ -72,11 +75,10 @@ public class ProfileController {
 		
 	}
 
-	
-
 	private void BindCustomerData(CustomerAccount ca)
 	{
-				((ProfileView)profileView).setFirstNameTextField(ca.getPerson().toString());
+				((ProfileView)profileView).setFirstNameTextField(ca.getPerson().getName().getFirstName().toString());
+				((ProfileView)profileView).setLastNameTextField(ca.getPerson().getName().getLastName().toString());
 				
 				
 		
@@ -108,11 +110,6 @@ public class ProfileController {
 
 	public void ShowProfileList()
 	{
-
-		
-		
-			//System.out.println(LoggedUser.getProfile().getFirstName());
-
 			String col[] = { "Customer Name"};
 			DefaultTableModel tableModel = new DefaultTableModel(col, 0);
 
@@ -148,8 +145,6 @@ public class ProfileController {
 		profileList.setVisible(true);		
 		PanelData.setParentPanel(profileList);
 		
-		
-
 
 	}
 

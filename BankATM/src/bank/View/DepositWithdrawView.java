@@ -54,6 +54,9 @@ public class DepositWithdrawView extends JPanel{
 		for (var acc : LoggedUser.getProfile().getCheckingAccounts()) {
 			accNameDd.addItem(acc);
 		}
+		for (var acc : LoggedUser.getProfile().getSavingsAccounts()) {
+			accNameDd.addItem(acc);
+		}
 
 		amountLabel = new JLabel("Amount", JLabel.TRAILING);		
 		amountTextField = new JFormattedTextField(dFormat);

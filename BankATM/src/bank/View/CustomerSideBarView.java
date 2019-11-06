@@ -8,8 +8,11 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import bank.LoggedUser;
 import bank.Controller.AccountController;
+import bank.Controller.LoanController;
 import bank.Controller.LoginController;
+import bank.Controller.ProfileController;
 
 public class CustomerSideBarView extends JPanel {
 
@@ -21,6 +24,7 @@ public class CustomerSideBarView extends JPanel {
 	private JButton loanListButton;
 	private JButton newLoanButton;
 	private JButton logOutButton;
+	private JButton tradingAccountButton;
 	
 	public CustomerSideBarView()
 	{
@@ -31,6 +35,7 @@ public class CustomerSideBarView extends JPanel {
 		newAccButton = new JButton("Create New Account");
 		loanListButton = new JButton("Loan List");
 		newLoanButton = new JButton("Apply New Loan");
+		tradingAccountButton = new JButton("Trading Account");
 		logOutButton = new JButton("Log out");
 		
 		this.setLayout(new GridBagLayout());
@@ -44,6 +49,7 @@ public class CustomerSideBarView extends JPanel {
 		this.add(newAccButton, gbc);
 		this.add(loanListButton, gbc);
 		this.add(newLoanButton, gbc);
+		this.add(tradingAccountButton, gbc);
 		this.add(logOutButton, gbc);
 		initialize();
 	}
@@ -56,8 +62,8 @@ public class CustomerSideBarView extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				
 				//JPanel pa =  new ProfileView();		    	
-		        //ProfileController proController = new ProfileController();
-		        //proController.showLoggedUserProfile();
+		        ProfileController proController = new ProfileController();
+		        proController.showLoggedUserProfile(LoggedUser.getProfile());
 				
 			}
 		});
@@ -72,23 +78,29 @@ public class CustomerSideBarView extends JPanel {
 		
 		loanListButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	    	
-				//LoanController loanController = new LoanController();
+				LoanController loanController = new LoanController();
 		        
-				
 			}
 		});
 		newAccButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AccountController accController = new AccountController();
-		        accController.newAccount();
-		        
+		        accController.newAccount(); 
 				
 			}
 		});
 		newLoanButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+						    	
+				LoanController loanController = new LoanController();
+				loanController.NewLoan();
+		        
 				
-				//JPanel pa =  new ProfileView();		    	
+			}
+		});
+		tradingAccountButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+	    	
 				//LoanController loanController = new LoanController();
 				//loanController.NewLoan();
 		        
