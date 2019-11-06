@@ -1,4 +1,4 @@
-package bank;
+package bank.View;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+import bank.Controller.LoginController;
 
 public class ManagerSideView extends JPanel {
 

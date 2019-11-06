@@ -1,4 +1,4 @@
-package bank;
+package bank.Controller;
 
 import java.util.Date;
 import java.util.List;
@@ -10,6 +10,16 @@ import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+
+import bank.Account;
+import bank.AccountType;
+import bank.Currency;
+import bank.LoggedUser;
+import bank.PanelData;
+import bank.TransactionType;
+import bank.View.AccountListView;
+import bank.View.AddAccountView;
+import bank.View.DepositWithdrawView;
 
 public class AccountController {
 	private JPanel accountListView;

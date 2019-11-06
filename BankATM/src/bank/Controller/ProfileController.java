@@ -1,4 +1,4 @@
-package bank;
+package bank.Controller;
 
 import java.awt.BorderLayout;
 import java.awt.event.MouseAdapter;
@@ -12,6 +12,13 @@ import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+
+import bank.CustomerAccount;
+import bank.Data;
+import bank.PanelData;
+import bank.Person;
+import bank.View.ProfileListView;
+import bank.View.ProfileView;
 
 public class ProfileController {
 

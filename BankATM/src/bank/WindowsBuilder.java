@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import bank.Controller.LoginController;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Color;

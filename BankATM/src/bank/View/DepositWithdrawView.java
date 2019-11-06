@@ -1,4 +1,4 @@
-package bank;
+package bank.View;
 
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
@@ -13,6 +13,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
+
+import bank.Account;
+import bank.LoggedUser;
+import bank.SpringUtilities;
+import bank.TransactionType;
 
 public class DepositWithdrawView extends JPanel{
 

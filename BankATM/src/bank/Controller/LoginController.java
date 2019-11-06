@@ -1,8 +1,18 @@
-package bank;
+package bank.Controller;
 
 import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
+
+import bank.CustomerAccount;
+import bank.Data;
+import bank.LoggedUser;
+import bank.PanelData;
+import bank.Person;
+import bank.View.CustomerSideBarView;
+import bank.View.LoginView;
+import bank.View.MainSideView;
+import bank.View.ManagerSideView;
 
 public class LoginController {
 
