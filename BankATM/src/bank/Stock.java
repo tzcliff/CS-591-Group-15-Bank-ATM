@@ -63,4 +63,8 @@ public class Stock {
     public void returnSoldShares(int n){
         currentlyAvailableShares += n;
     }
+
+    public void setTotalShares(int totalShares) {
+        this.totalShares = totalShares;
+    }
 }

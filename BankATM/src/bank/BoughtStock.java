@@ -45,12 +45,15 @@ public class BoughtStock {
         Float averagePricePaidForEachShare = totalAmountSpentOnBuying / sharesAmount;
         sharesAmount -= n;
         totalAmountSpentOnBuying -= averagePricePaidForEachShare * n;
-        return n * (averagePricePaidForEachShare - stock.getCurrentPrice());
+        //return n * (averagePricePaidForEachShare - stock.getCurrentPrice());
+        return n * (stock.getCurrentPrice() - averagePricePaidForEachShare);
     }
 
     // Returns to the user how much money will he make if he sells right now n shares
     public Float returnPossibleProfit(int n){
         Float averagePricePaidForEachShare = totalAmountSpentOnBuying / sharesAmount;
-        return n * (averagePricePaidForEachShare - stock.getCurrentPrice());
+        //return n * (averagePricePaidForEachShare - stock.getCurrentPrice());
+        return n * (stock.getCurrentPrice() - averagePricePaidForEachShare);
+
     }
 }

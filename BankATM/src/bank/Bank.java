@@ -202,7 +202,7 @@ public class Bank {
 
     // Returns the customer object associated with this name and surname
     // if this person does not exist return null
-    public CustomerAccount t(Person personToLogIn){
+    public CustomerAccount loginCustomer(Person personToLogIn){
         for (CustomerAccount customerAccount:
              customerAccounts) {
             if (customerAccount.getPerson().toString().equals(personToLogIn.toString())){
