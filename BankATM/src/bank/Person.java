@@ -6,10 +6,16 @@
 package bank;
 
 public class Person {
+    private static int person_id = 0;
+
     private Name name;
 
     public Person(String firstName, String lastName) {
         this.name = new Name(firstName, lastName);
+    }
+
+    public static int getNewPersonID(){
+        return person_id++;
     }
 
     @Override
