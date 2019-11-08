@@ -5,7 +5,7 @@
  * */
 package bank;
 
-import javax.swing.JFrame;
+import bank.MySql.*;
 
 public class Main {
 	
@@ -18,8 +18,6 @@ public class Main {
 
         DBManager dbManager = new DBManager();
         dbManager.connect();
-        CustomerAccount dummy = new CustomerAccount(new Person("Joe", "Biden") , false);
-
         Data.setBank(bank);
         
         WindowsBuilder w = new WindowsBuilder();
