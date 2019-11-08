@@ -17,4 +17,8 @@ public class SavingsAccount extends Account {
     public void payInterest(){
         setBalanceInLocalCurrency(balanceInLocalCurrency + balanceInLocalCurrency * interest/100);
     }
+
+    public Float getInterest() {
+        return interest;
+    }
 }

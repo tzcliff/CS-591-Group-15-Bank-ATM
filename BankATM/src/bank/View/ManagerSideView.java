@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import bank.Controller.LoanController;
+import bank.Controller.LoanControllerManager;
 import bank.Controller.LoginController;
 import bank.Controller.ProfileController;
 import bank.Controller.StockController;
@@ -54,6 +56,7 @@ public class ManagerSideView extends JPanel {
 	{
 		loanListButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				LoanControllerManager loanControllerManager = new LoanControllerManager();
 	    	
 				//LoanController loanController = new LoanController();
 		     
