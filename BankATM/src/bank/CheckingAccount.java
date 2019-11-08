@@ -48,5 +48,19 @@ public class CheckingAccount extends Account {
         return false;
     }
 
+    public Float getTransactionFee() {
+        return transactionFee;
+    }
 
+    public void setTransactionFee(Float transactionFee) {
+        this.transactionFee = transactionFee;
+    }
+
+    public Float getWithdrawalFee() {
+        return withdrawalFee;
+    }
+
+    public void setWithdrawalFee(Float withdrawalFee) {
+        this.withdrawalFee = withdrawalFee;
+    }
 }
