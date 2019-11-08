@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import bank.Controller.LoginController;
+import bank.Controller.StockController;
 
 public class ManagerSideView extends JPanel {
 
@@ -21,6 +22,9 @@ public class ManagerSideView extends JPanel {
 	private JButton transactionButton;
 	private JPanel parentPanel;
 	private JButton logOutButton;
+	private JButton newStock;
+	private JButton changeStock;
+
 	
 	public ManagerSideView()
 	{
@@ -28,6 +32,7 @@ public class ManagerSideView extends JPanel {
 		loanListButton = new JButton("Loan List to Approve");
 		transactionButton = new JButton("Transaction List");
 		logOutButton = new JButton("Log out");
+		newStock = new JButton("New Stock");
 		
 		this.setLayout(new GridBagLayout());
 	    GridBagConstraints gbc = new GridBagConstraints();
@@ -37,6 +42,7 @@ public class ManagerSideView extends JPanel {
         this.add(custListButton, gbc);
 		this.add(loanListButton, gbc);
 		this.add(transactionButton, gbc);
+		this.add(newStock, gbc);
 		this.add(logOutButton, gbc);
 		
 		initialize();
@@ -69,6 +75,14 @@ public class ManagerSideView extends JPanel {
 		logOutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {    	
 				LoginController loginController = new LoginController();
+			}
+		});
+
+		newStock.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				StockController stockController = new StockController();
+				stockController.newStockView();
 			}
 		});
 	}
