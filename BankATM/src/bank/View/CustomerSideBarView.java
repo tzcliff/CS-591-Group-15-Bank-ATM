@@ -13,6 +13,7 @@ import bank.Controller.AccountController;
 import bank.Controller.LoanController;
 import bank.Controller.LoginController;
 import bank.Controller.ProfileController;
+import bank.Controller.TransferController;
 
 public class CustomerSideBarView extends JPanel {
 
@@ -25,6 +26,7 @@ public class CustomerSideBarView extends JPanel {
 	private JButton newLoanButton;
 	private JButton logOutButton;
 	private JButton tradingAccountButton;
+	private JButton transfer;
 	
 	public CustomerSideBarView()
 	{
@@ -37,6 +39,7 @@ public class CustomerSideBarView extends JPanel {
 		newLoanButton = new JButton("Apply New Loan");
 		tradingAccountButton = new JButton("Trading Account");
 		logOutButton = new JButton("Log out");
+		transfer = new JButton("Transfer");
 		
 		this.setLayout(new GridBagLayout());
 	    GridBagConstraints gbc = new GridBagConstraints();
@@ -50,7 +53,9 @@ public class CustomerSideBarView extends JPanel {
 		this.add(loanListButton, gbc);
 		this.add(newLoanButton, gbc);
 		this.add(tradingAccountButton, gbc);
+		this.add(transfer, gbc);
 		this.add(logOutButton, gbc);
+
 		initialize();
 	}
 	
@@ -107,6 +112,15 @@ public class CustomerSideBarView extends JPanel {
 				
 			}
 		});
+
+		transfer.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				TransferController transferController = new TransferController();
+
+			}
+		});
+
 		logOutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {    	
 				LoginController loginController = new LoginController();

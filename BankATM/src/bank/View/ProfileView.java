@@ -77,6 +77,8 @@ public class ProfileView extends JPanel{
 	    GridBagConstraints gbc = new GridBagConstraints();
 	    gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        
+        
 	    
         //jp.add(emailLabel);		
 		//jp.add(emailTextField);
