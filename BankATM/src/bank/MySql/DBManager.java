@@ -4,6 +4,9 @@ import bank.CustomerAccount;
 
 import bank.*;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class DBManager {
 
     Connection con;
@@ -55,6 +58,44 @@ public class DBManager {
     }
 
 
+    public List<CheckingAccount> readCheckingkAccout(){
+        List<CheckingAccount> list = new ArrayList<>();
+
+
+        try {
+            Statement stmt=con.createStatement();
+            ResultSet rs=stmt.executeQuery("select * from account WHERE type = \'C\'");
+            CheckingAccount temp;
+            while(rs.next()) {
+
+                temp = new CheckingAccount(rs.getFloat(1), rs.getInt("routing_num"), rs.getInt("acc_num"), rs.getBoolean("active"), new Currency("USD")
+                        , rs.getFloat("close_fee"), rs.getFloat("open_fee"), rs.getFloat("transaction_fee"), rs.getFloat("withdrawal_fee"));
+                list.add(temp);
+            }
+        }
+        catch(Exception e){ System.out.println(e);}
+        return list;
+    }
+
+
+    public List<SavingsAccount> readSavingAccount(){
+        List<SavingsAccount> list = new ArrayList<>();
+
+
+        try {
+            Statement stmt=con.createStatement();
+            ResultSet rs=stmt.executeQuery("select * from account WHERE type = \'S\'");
+            SavingsAccount temp;
+            while(rs.next()) {
+
+                temp = new SavingsAccount(rs.getFloat(1), rs.getInt("routing_num"), rs.getInt("acc_num"), rs.getBoolean("active"), new Currency("USD")
+                        , rs.getFloat("close_fee"), rs.getFloat("open_fee"), rs.getFloat("interest"));
+                list.add(temp);
+            }
+        }
+        catch(Exception e){ System.out.println(e);}
+        return list;
+    }
 
 
 
@@ -65,6 +106,5 @@ public class DBManager {
         }
         catch(Exception e){ System.out.println(e);}
     }
-
 }
 
