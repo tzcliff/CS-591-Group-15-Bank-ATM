@@ -15,11 +15,13 @@ public class StockController {
     private StockTransactionView stockTransactionView;
     private StockPredict stockPredictView;
     private ManagerStockView managerStockView;
+    private changeStockView changeStockView;
     public StockController() {
         stockListView = new StockListView();
         stockTransactionView = new StockTransactionView();
         stockPredictView = new StockPredict();
         managerStockView = new ManagerStockView();
+        changeStockView = new changeStockView();
         initController();
     }
     public void StockList()
@@ -86,11 +88,17 @@ public class StockController {
         managerStockView.getSaveButton().addActionListener(l ->newStock());
         stockListView.getStockPredict().addActionListener(l ->stockPredictView());
         managerStockView.getChangeStockButton().addActionListener(l ->changeStockView());
+        changeStockView.getSaveButton().addActionListener(l ->changeStock());
+
+    }
+
+    private void changeStock () {
 
     }
 
     private void changeStockView() {
-
+        changeStockView.setVisible(true);
+        PanelData.setParentPanel(changeStockView);
     }
 
     private void stockTransaction() {

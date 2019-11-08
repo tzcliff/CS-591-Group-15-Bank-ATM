@@ -9,7 +9,9 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import bank.Controller.LoginController;
+import bank.Controller.ProfileController;
 import bank.Controller.StockController;
+import bank.Controller.TransactionController;
 
 public class ManagerSideView extends JPanel {
 
@@ -59,16 +61,16 @@ public class ManagerSideView extends JPanel {
 		});
 		custListButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {	    	
-				//ProfileController proController = new ProfileController();
-				//proController.ShowProfileList();		     
+				ProfileController proController = new ProfileController();
+				proController.ShowProfileList();
 			}
 		});
 		
 		transactionButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 	    	
-				//TransactionController transController = new TransactionController();
-				//transController.transactionList();
+				TransactionController transController = new TransactionController();
+				transController.transactionList();
 		     
 			}
 		});
