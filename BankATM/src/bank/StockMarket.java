@@ -3,8 +3,8 @@ package bank;
 import java.util.ArrayList;
 
 public class StockMarket {
-    ArrayList<Stock> stocks;
-    int numsOfStocks;
+    public static ArrayList<Stock>  stocks;
+    public static int numsOfStocks;
 
     StockMarket() {
         stocks = new ArrayList<>();
@@ -52,4 +52,7 @@ public class StockMarket {
         return false;
     }
 
+    public static ArrayList<Stock> getStocks() {
+        return stocks;
+    }
 }

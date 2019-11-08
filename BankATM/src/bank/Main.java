@@ -5,6 +5,9 @@
  * */
 package bank;
 
+
+import javax.swing.JFrame;
+
 import bank.MySql.*;
 
 public class Main {

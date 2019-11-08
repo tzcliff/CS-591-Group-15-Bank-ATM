@@ -8,12 +8,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import bank.Controller.*;
 import bank.LoggedUser;
-import bank.Controller.AccountController;
-import bank.Controller.LoanController;
-import bank.Controller.LoginController;
-import bank.Controller.ProfileController;
-import bank.Controller.TransferController;
 
 public class CustomerSideBarView extends JPanel {
 
@@ -27,6 +23,7 @@ public class CustomerSideBarView extends JPanel {
 	private JButton logOutButton;
 	private JButton tradingAccountButton;
 	private JButton transfer;
+
 	
 	public CustomerSideBarView()
 	{
@@ -40,6 +37,7 @@ public class CustomerSideBarView extends JPanel {
 		tradingAccountButton = new JButton("Trading Account");
 		logOutButton = new JButton("Log out");
 		transfer = new JButton("Transfer");
+
 		
 		this.setLayout(new GridBagLayout());
 	    GridBagConstraints gbc = new GridBagConstraints();
@@ -54,6 +52,7 @@ public class CustomerSideBarView extends JPanel {
 		this.add(newLoanButton, gbc);
 		this.add(tradingAccountButton, gbc);
 		this.add(transfer, gbc);
+
 		this.add(logOutButton, gbc);
 
 		initialize();
@@ -108,6 +107,9 @@ public class CustomerSideBarView extends JPanel {
 	    	
 				//LoanController loanController = new LoanController();
 				//loanController.NewLoan();
+
+				StockController stockController = new StockController();
+				stockController.StockList();
 		        
 				
 			}
@@ -120,6 +122,8 @@ public class CustomerSideBarView extends JPanel {
 
 			}
 		});
+
+
 
 		logOutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {    	
