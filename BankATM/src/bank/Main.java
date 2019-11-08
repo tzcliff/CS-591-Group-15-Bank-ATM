@@ -15,7 +15,11 @@ public class Main {
         Person manager = new Person("Christine", "Papadakis");
         BankManagerAccount managerAccount = new BankManagerAccount(manager);
         Bank bank = new Bank(managerAccount);
-        
+
+        DBManager dbManager = new DBManager();
+        dbManager.connect();
+        CustomerAccount dummy = new CustomerAccount(new Person("Joe", "Biden") , false);
+
         Data.setBank(bank);
         
         WindowsBuilder w = new WindowsBuilder();

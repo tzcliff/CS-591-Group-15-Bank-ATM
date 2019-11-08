@@ -35,6 +35,14 @@ public abstract class Account {
         this.openingCharge = openingCharge;
     }
 
+    public Float getOpeningCharge() {
+        return openingCharge;
+    }
+
+    public Float getClosingCharge() {
+        return closingCharge;
+    }
+
     // Returns the base balance
     public Float getBalanceInLocalCurrency() {
         return balanceInLocalCurrency;

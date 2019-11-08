@@ -6,11 +6,13 @@
 package bank;
 
 public class Person {
+
     private Name name;
 
     public Person(String firstName, String lastName) {
         this.name = new Name(firstName, lastName);
     }
+
 
     @Override
     public String toString() {
@@ -21,5 +23,4 @@ public class Person {
 		return name;
 	}
 
-	
 }

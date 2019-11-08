@@ -70,7 +70,7 @@ public class AccountController {
 
 
 		//LoggedUser.getProfile().depositAmount(01, 1, receiverAccountNumber, receiverRoutingNumber)
-
+		// CustomerAccount
 		for (Account acc : LoggedUser.getProfile().getCheckingAccounts()) {
 
 			System.out.println(((DepositWithdrawView)depositWView).getAccNameDd().getSelectedItem());
