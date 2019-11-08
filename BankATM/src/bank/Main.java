@@ -20,9 +20,11 @@ public class Main {
 
         DBManager dbManager = new DBManager();
         dbManager.connect();
+        CustomerAccount dummy = new CustomerAccount(new Person("Joe", "Biden") , false);
+        //dbManager.addPerson(dummy);
         Data.setBank(bank);
         
-        WindowsBuilder w = new WindowsBuilder();
+        //WindowsBuilder w = new WindowsBuilder();
        
         
     }

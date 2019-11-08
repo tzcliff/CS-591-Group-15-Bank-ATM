@@ -17,18 +17,15 @@ public class DBManager {
             con=DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/bank_atm","admin","admin");
             Statement stmt=con.createStatement();
-            ResultSet rs=stmt.executeQuery("select * from account");
+            ResultSet rs=stmt.executeQuery("select * from person");
             while(rs.next())
-                System.out.println(rs.getInt(1));
+                System.out.println(rs.getString(2));
         }catch(Exception e){ System.out.println(e);}
     }
 
     public void addPerson(CustomerAccount customerAccount){
-        try {
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("INSERT INTO ");
-        }
-        catch(Exception e){ System.out.println(e);}
+        String sql = "INSERT INTO bank_atm.person (first_name, last_name) VALUES (\'"+ customerAccount.getPerson().getName().getFirstName() + "\', \'"+ customerAccount.getPerson().getName().getFirstName()+ "\');";
+        sqlExecute(sql);
     }
     public void addCheckingAccount(CheckingAccount checkingAccount){
 
@@ -60,6 +57,14 @@ public class DBManager {
     }
     public void deleteSavingAccount(SavingsAccount savingsAccount){
 
+    }
+
+    public void sqlExecute(String sql){
+        try {
+            Statement stmt = con.createStatement();
+            stmt.execute(sql);
+        }
+        catch(Exception e){ System.out.println(e);}
     }
 
 }

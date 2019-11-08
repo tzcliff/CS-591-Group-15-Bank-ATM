@@ -173,7 +173,7 @@ import java.util.ArrayList;
 public class Bank {
     private ArrayList<CustomerAccount> customerAccounts;
     private BankManagerAccount bankManagerAccount;
-    private CustomerAccount currentCustomer; // The user that is currently logged in
+    //private CustomerAccount currentCustomer; // The user that is currently logged in
 
     
     public ArrayList<CustomerAccount> getCustomerAccounts() {
@@ -233,4 +233,8 @@ public class Bank {
         }
         return false;
     }
+
+//    public void setCurrentCustomer(CustomerAccount currentCustomer) {
+//        this.currentCustomer = currentCustomer;
+//    }
 }

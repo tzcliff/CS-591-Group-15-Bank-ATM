@@ -55,6 +55,7 @@ public class LoginController {
 		Person p = new Person(loginView.getfNAmeTextField().getText(), loginView.getlNameTextField().getText());
 		
 		var loggedUser = Data.getBank().loginCustomer(p);
+		//Data.getBank().setCurrentCustomer(loggedUser);
 		if (loggedUser != null)
 		{
 			custSideView.setVisible(true);	
