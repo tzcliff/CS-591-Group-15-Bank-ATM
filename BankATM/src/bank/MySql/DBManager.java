@@ -29,37 +29,34 @@ public class DBManager {
     }
     public void addCheckingAccount(CheckingAccount checkingAccount){
         String sql = "INSERT INTO bank_atm.account (balance, routing_num, acc_num, active, open_fee, close_fee, transaction_fee, withdrrawal_fee, type) VALUES (\'" + checkingAccount.getBalanceInLocalCurrency() + "\', \'" + checkingAccount.getRoutingNumber() + "\', \'" + checkingAccount.getAccountNumber() + "\', " +
-                "\'"+ checkingAccount.isActive() +"\', \'"+ checkingAccount.getOpeningCharge() +"\', \'"+ checkingAccount.getClosingCharge() +"\', \'" + checkingAccount.getTransactionFee() + "\', \'"+ checkingAccount.getWithdrawalFee() +"\', \'" + "C" +"\');";
+                ""+ checkingAccount.isActive() +", \'"+ checkingAccount.getOpeningCharge() +"\', \'"+ checkingAccount.getClosingCharge() +"\', \'" + checkingAccount.getTransactionFee() + "\', \'"+ checkingAccount.getWithdrawalFee() +"\', \'" + "C" +"\');";
         sqlExecute(sql);
     }
     public void addSavingAccount(SavingsAccount savingsAccount){
-
+        String sql = "INSERT INTO bank_atm.account (balance, routing_num, acc_num, active, open_fee, close_fee, interest, type) VALUES (\'" + savingsAccount.getBalanceInLocalCurrency() + "\', \'" + savingsAccount.getRoutingNumber() + "\', \'" + savingsAccount.getAccountNumber() + "\', " +
+                ""+ savingsAccount.isActive() +", \'"+ savingsAccount.getOpeningCharge() +"\', \'"+ savingsAccount.getClosingCharge() +"\', \'" + savingsAccount.getInterest() + "\', \'" + "S" +"\');";
+        sqlExecute(sql);
     }
 
-//    public void addSecurityAccount(SavingsAccount savingsAccount){
-//
-//    }
+    public void addBoughtStock(BoughtStock boughtStock, SecurityAccount securityAccount){
+        String sql = "INSERT INTO bank_atm.bought_stock (share_amount, worth, account_id) VALUES (\'"+ boughtStock.getAmountOfStocks() +"\', \'" + boughtStock.getTotalAmountSpentOnBuying() + "\', \'"+ securityAccount.getAccountNumber()+"\');";
 
-    public void updatePerson(CustomerAccount customerAccount){
-
-    }
-    public void updateCheckingAccount(CheckingAccount checkingAccount){
-
-    }
-    public void updateSavingAccount(SavingsAccount savingsAccount){
-
+        sqlExecute(sql);
     }
 
-
-    public void deletePerson(CustomerAccount customerAccount){
-
+    public void addTransaction(Transaction transaction){
+        String sql = "INSERT INTO bank_atm.transaction (sender_acc_num, sender_routing_num, rec_acc_num, rec_routing_num) VALUES (\'" +transaction.getSenderAccountNumber()+ "\', \'"+ transaction.getSenderRoutingNumber()+"\', \'" + transaction.getReceiverAccountNumber()+ "\', \'"+transaction.getReceiverRoutingNumber()+"\');";
+        sqlExecute(sql);
     }
-    public void deleteCheckingAccount(CheckingAccount checkingAccount){
 
+    public void addLoan(Loan loan, CustomerAccount customerAccount){
+        String sql = " INSERT INTO bank_atm.loan (initial_amount, debt, person_name, interest) VALUES (\'"+loan.getInitialAmountInLocalCurrency()+"\', \'"+loan.getDebtInLocalCurrency()+"\', \'"+customerAccount.getPerson().getName().getFirstName()+"\', \'"+loan.getInterest()+"\');";
+        sqlExecute(sql);
     }
-    public void deleteSavingAccount(SavingsAccount savingsAccount){
 
-    }
+
+
+
 
     public void sqlExecute(String sql){
         try {

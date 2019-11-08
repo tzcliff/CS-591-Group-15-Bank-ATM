@@ -20,6 +20,13 @@ public class Stock {
         this.demand = demand;
     }
 
+    public Stock(Float price, int totalShares, int currentlyAvailableShares, String name) {
+        this.price = price;
+        this.totalShares = totalShares;
+        this.currentlyAvailableShares = currentlyAvailableShares;
+        this.name = name;
+    }
+
     public Float getCurrentPrice() {
         return price;
     }

@@ -17,6 +17,13 @@ public class BoughtStock {
         this.lastTimeStockWasBought = LocalDateTime.now();
     }
 
+    public int getSharesAmount() {
+        return sharesAmount;
+    }
+
+    public Float getTotalAmountSpentOnBuying() {
+        return totalAmountSpentOnBuying;
+    }
 
     public Stock getStock() {
         return stock;
