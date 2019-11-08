@@ -170,7 +170,6 @@ package bank;
 
 import java.util.ArrayList;
 
-
 public class Bank {
     private ArrayList<CustomerAccount> customerAccounts;
     private BankManagerAccount bankManagerAccount;
@@ -188,16 +187,8 @@ public class Bank {
         this.bankManagerAccount = bankManagerAccount;
     }
 
-    //TODO: Check if this customer name already exists
-    public boolean registerNewCustomer(Person newCustomer){
-        for (CustomerAccount tmpCustomerAccount :
-                customerAccounts) {
-            if (tmpCustomerAccount.getPerson().toString().equals(newCustomer)){
-                return false;
-            }
-        }
+    public void registerNewCustomer(Person newCustomer){
         customerAccounts.add(new CustomerAccount(newCustomer));
-        return true;
     }
 
     // Returns the customer object associated with this name and surname
@@ -230,8 +221,6 @@ public class Bank {
         }
         return transactions;
     }
-
-    // AccountN = 0 RoutingN = 0 -> _ReceiversAccountN_ __ReceiversRoutingN__
 
     // Was previously used to find the account of the receiver in a money transfer. If found it transfers the amount amount otherwise
     // if the account with routing number receiverRoutingN and account number receiverAccountN does not exist returns false
