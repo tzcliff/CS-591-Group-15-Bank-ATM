@@ -21,4 +21,15 @@ public class SavingsAccount extends Account {
     public Float getInterest() {
         return interest;
     }
+
+    public Boolean checkIfBalanceSufficientForTransfer(Float amount, int targetAccountN, int targetRoutingN){
+        if (accountNumber == targetAccountN && routingNumber == targetRoutingN){
+            if (amount <= balanceInLocalCurrency){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        return null;
+    }
 }

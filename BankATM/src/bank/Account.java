@@ -18,8 +18,8 @@ package bank;
 public abstract class Account {
     private static int accountUniqueID = 0;
     protected Float balanceInLocalCurrency;
-    private int routingNumber;
-    private int accountNumber;
+    protected int routingNumber;
+    protected int accountNumber;
     private boolean active;
     private Currency currency;
     protected Float openingCharge;
@@ -92,7 +92,7 @@ public abstract class Account {
 
     // Method that is strictly used as the first part of a transfer. A transfer consists from a deduct from account A
     // and a deposit to account B. This is the first part.
-    public boolean deductAmountToBeTransferred(int amount){
+    public boolean withdrawAmountToTransfer(int amount){
         if (amount > balanceInLocalCurrency){
             return false;
         }

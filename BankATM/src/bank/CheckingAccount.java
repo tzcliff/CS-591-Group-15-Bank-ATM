@@ -6,13 +6,13 @@
 package bank;
 
 public class CheckingAccount extends Account {
-    private Float transactionFee;
+    private Float transferFee;
     private Float withdrawalFee;
 
     public CheckingAccount(Float amountInLocalCurrency, int routingNumber, int accountNumber, boolean active, Currency currency,
-                           Float closingCharge, Float openingCharge, Float transactionFee, Float withdrawalFee) {
+                           Float closingCharge, Float openingCharge, Float transferFee, Float withdrawalFee) {
         super(amountInLocalCurrency, routingNumber, accountNumber, active, currency, closingCharge, openingCharge);
-        this.transactionFee = transactionFee;
+        this.transferFee = transferFee;
         this.withdrawalFee = withdrawalFee;
     }
 
@@ -36,24 +36,24 @@ public class CheckingAccount extends Account {
     // to ensure that there exist enough money to deduct the transfer fee as well, otherwise return that the transaction could
     // not be performed
     @Override
-    public boolean deductAmountToBeTransferred(int amount){
-        if (super.deductAmountToBeTransferred(amount)){
-            if (transactionFee > balanceInLocalCurrency){
+    public boolean withdrawAmountToTransfer(int amount){
+        if (super.withdrawAmountToTransfer(amount)){
+            if (transferFee > balanceInLocalCurrency){
                 balanceInLocalCurrency += amount;
                 return false;
             }
-            balanceInLocalCurrency -= transactionFee;
+            balanceInLocalCurrency -= transferFee;
             return true;
         }
         return false;
     }
 
-    public Float getTransactionFee() {
-        return transactionFee;
+    public Float getTransferFee() {
+        return transferFee;
     }
 
-    public void setTransactionFee(Float transactionFee) {
-        this.transactionFee = transactionFee;
+    public void setTransferFee(Float transferFee) {
+        this.transferFee = transferFee;
     }
 
     public Float getWithdrawalFee() {
@@ -62,5 +62,16 @@ public class CheckingAccount extends Account {
 
     public void setWithdrawalFee(Float withdrawalFee) {
         this.withdrawalFee = withdrawalFee;
+    }
+
+    public Boolean checkIfBalanceSufficientForTransfer(Float amount, int targetAccountN, int targetRoutingN){
+        if (accountNumber == targetAccountN && routingNumber == targetRoutingN){
+            if (amount + transferFee <= balanceInLocalCurrency){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        return null;
     }
 }
