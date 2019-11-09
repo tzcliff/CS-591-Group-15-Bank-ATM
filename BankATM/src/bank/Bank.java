@@ -187,8 +187,18 @@ public class Bank {
         this.bankManagerAccount = bankManagerAccount;
     }
 
-    public void registerNewCustomer(Person newCustomer){
+
+    // Checks if newCustomer is already a customer of the bank and if he is returns false
+    // Otherwise creates the newCustomer and returns true
+    public boolean registerNewCustomer(Person newCustomer){
+        for (CustomerAccount customerAccount:
+                customerAccounts) {
+            if (customerAccount.getPerson().toString().equals(newCustomer.toString())){
+                return false;
+            }
+        }
         customerAccounts.add(new CustomerAccount(newCustomer));
+        return true;
     }
 
     // Returns the customer object associated with this name and surname
