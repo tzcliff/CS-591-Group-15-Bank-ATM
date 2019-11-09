@@ -38,8 +38,8 @@ public class LoginView  extends JPanel{
 		passwordLabel = new JLabel("Last Name", JLabel.TRAILING);
 		lNameTextField = new JTextField(20);
 		passwordLabel.setLabelFor(lNameTextField);
-		loginButton = new JButton("Sign Customer");
-		newButton = new JButton("New User");
+		loginButton = new JButton("Sign In");
+		newButton = new JButton("Sign Up New User");
 		loginManagerButton = new JButton("Login Manager");
 		msgLabel = new JLabel("");
 		

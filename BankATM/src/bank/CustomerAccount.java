@@ -22,6 +22,7 @@ public class CustomerAccount {
     private ArrayList<SavingsAccount> savingsAccounts;
     private ArrayList<Loan> loans;
     private ArrayList<Transaction> transactions;
+    private SecurityAccount securityAccount;
     private boolean collateral;
 
     public CustomerAccount(Person person, boolean collateral) {
@@ -31,6 +32,7 @@ public class CustomerAccount {
         this.savingsAccounts = new ArrayList<SavingsAccount>();
         this.transactions = new ArrayList<Transaction>();
         this.loans= new ArrayList<Loan>();
+        securityAccount = new SecurityAccount(0.0f, 0, 0, true, new Currency("USD"), 0.0f, 0.0f);
     }
 
     public CustomerAccount(Person person) {
@@ -46,6 +48,10 @@ public class CustomerAccount {
         Currency currency = new Currency("USD");
         checkingAccounts.add(new CheckingAccount(0.0f, 0, CheckingAccount.getNewAccountUniqueNumber(), true, currency,
                 0.0f, 0.0f, 0.0f,0.0f));
+    }
+
+    public SecurityAccount getSecurityAccount() {
+        return securityAccount;
     }
 
     public void addNewSavingsAccount(){

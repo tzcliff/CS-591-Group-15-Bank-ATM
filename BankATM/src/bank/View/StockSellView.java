@@ -16,12 +16,12 @@ import javax.swing.SpringLayout;
 
 import bank.*;
 
-public class StockPredict extends JPanel{
+public class StockSellView extends JPanel{
 
 
 
-    private JComboBox stockBoughtc;
-    private JLabel stockBoughtl;
+    private JComboBox stockc;
+    private JLabel stockl;
 
     private JLabel amountLabel;
     private JFormattedTextField amountTextField;
@@ -31,7 +31,7 @@ public class StockPredict extends JPanel{
     private DecimalFormatSymbols dfs;
     private DecimalFormat dFormat;
 
-    public StockPredict()
+    public StockSellView()
     {
         super(new BorderLayout());
 
@@ -43,28 +43,25 @@ public class StockPredict extends JPanel{
 
 
 
-        stockBoughtl = new JLabel("The stock you bought", JLabel.TRAILING);
-        stockBoughtc = new JComboBox();
-        stockBoughtl.setLabelFor(stockBoughtc);
+        stockl = new JLabel("Stock", JLabel.TRAILING);
+        stockc = new JComboBox();
+        stockl.setLabelFor(stockc);
 //        for (var acc : LoggedUser.getProfile().getCheckingAccounts()) {
 //            accNameDd.addItem(acc);
 //        }
 //        for (var acc : LoggedUser.getProfile().getSavingsAccounts()) {
 //            accNameDd.addItem(acc);
 //        }
-        /*for (BoughtStock bs : LoggedUser.getProfile().getSecurityAccount().getBoughtStocks()) {
-            stockBoughtc.addItem(bs.getStock().getName());
-        }*/
 
         for (int i = 0; i< LoggedUser.getProfile().getSecurityAccount().getBoughtStocks().size(); i++) {
-            stockBoughtc.addItem(LoggedUser.getProfile().getSecurityAccount().getBoughtStocks().get(i).getStock().getName());
+            stockc.addItem(LoggedUser.getProfile().getSecurityAccount().getBoughtStocks().get(i).getStock().getName());
         }
 
         amountLabel = new JLabel("Amount", JLabel.TRAILING);
         amountTextField = new JFormattedTextField(dFormat);
         amountLabel.setLabelFor(amountTextField);
 
-        saveButton = new JButton("Predict");
+        saveButton = new JButton("Sell");
         msgLabel = new JLabel();
 
         JPanel jp = new JPanel(new SpringLayout());
@@ -73,9 +70,8 @@ public class StockPredict extends JPanel{
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        jp.add(stockBoughtl);
-        jp.add(stockBoughtc);
-
+        jp.add(stockl);
+        jp.add(stockc);
         jp.add(amountLabel);
         jp.add(amountTextField);
 
@@ -89,6 +85,14 @@ public class StockPredict extends JPanel{
     }
 
 
+
+    public JComboBox getStockc() {
+        return stockc;
+    }
+
+    public JLabel getStockl() {
+        return stockl;
+    }
 
     public JFormattedTextField getAmountTextField() {
         return amountTextField;

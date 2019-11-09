@@ -8,6 +8,15 @@ import java.util.UUID;
 public class Data {
 
 	private static Bank bank;
+	private static StockMarket stockMarket;
+
+	public static StockMarket getStockMarket() {
+		return stockMarket;
+	}
+
+	public static void setStockMarket(StockMarket stockMarket) {
+		Data.stockMarket = stockMarket;
+	}
 
 	public static Bank getBank() {
 		return bank;

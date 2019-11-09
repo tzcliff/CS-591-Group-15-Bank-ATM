@@ -18,7 +18,7 @@ import javax.swing.SpringLayout;
 
 public class changeStockView extends JPanel {
 
-    private JComboBox<Stock> stockComboBox;
+    private JComboBox stockComboBox;
     private JLabel stockLabel;
 
     private JLabel currentLabel;
@@ -42,12 +42,12 @@ public class changeStockView extends JPanel {
         headerLabel = new JLabel("Change stock attributes");
 
         stockLabel = new JLabel("Stock", JLabel.TRAILING);
-        stockComboBox = new JComboBox<>();
+        stockComboBox = new JComboBox();
         stockLabel.setLabelFor(stockComboBox);
 
-        for (int i = 0; i < StockMarket.getStocks().size(); i++) {
+        for (int i = 0; i < Data.getStockMarket().getStocks().size(); i++) {
 
-                stockComboBox.addItem(StockMarket.getStocks().get(i));
+                stockComboBox.addItem(Data.getStockMarket().getStocks().get(i).getName());
 
 
         }
@@ -111,11 +111,20 @@ public class changeStockView extends JPanel {
         this.msgLabel.setText(msgLabel);
     }
 
+    public JComboBox getStockComboBox() {
+        return stockComboBox;
+    }
 
+    public JTextField getTotalShareTextField() {
+        return totalShareTextField;
+    }
 
+    public JTextField getPriceTextField() {
+        return priceTextField;
+    }
 
-
-
-
+    public JTextField getCurrentTextField() {
+        return currentTextField;
+    }
 }
 

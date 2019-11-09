@@ -3,16 +3,21 @@ package bank;
 import java.util.ArrayList;
 
 public class StockMarket {
-    public static ArrayList<Stock>  stocks;
-    public static int numsOfStocks;
+    public  ArrayList<Stock>  stocks;
+    public  int numsOfStocks;
 
     StockMarket() {
         stocks = new ArrayList<>();
         numsOfStocks = 0;
     }
 
-    public void addStock(String name, int totalShares, float pricePerShare) {
-        stocks.add(new Stock(pricePerShare, totalShares, totalShares, name, "", ""));
+    public  void addStock(String name, int totalShares, int current, float pricePerShare) {
+        stocks.add(new Stock(pricePerShare, totalShares, current, name, "", ""));
+    }
+
+    public Stock getStockByName(String name) {
+        int temp = stockExists(name);
+        return stocks.get(temp);
     }
 
     public boolean deleteStock(String name) {
@@ -52,7 +57,18 @@ public class StockMarket {
         return false;
     }
 
-    public static ArrayList<Stock> getStocks() {
+    public boolean changeStockTotalShare(String name, int newTotal){
+        int temp = stockExists(name);
+        if (temp != -1){
+            stocks.get(temp).setTotalShares(newTotal);
+            return true;
+        }
+        return false;
+    }
+
+
+
+    public  ArrayList<Stock> getStocks() {
         return stocks;
     }
 }

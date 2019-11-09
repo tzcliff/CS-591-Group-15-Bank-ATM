@@ -45,6 +45,15 @@ public class SecurityAccount extends Account {
         return -1;
     }
 
+    public int stockExists(String stock){
+        for (int i = 0; i < boughtStocks.size(); i ++){
+            if (boughtStocks.get(i).getStock().getName().equals(stock)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
     // Checks if the stock exists, if it does and there are enough shares to be sold it returns the profit
     // of the transaction
     // If the stock does not exist in this account it returns null
@@ -54,5 +63,14 @@ public class SecurityAccount extends Account {
             return boughtStocks.get(boughtStockIndex).sellNStocks(n);
         }
         return null;
+    }
+
+    public ArrayList<BoughtStock> getBoughtStocks() {
+        return boughtStocks;
+    }
+
+    public BoughtStock getBoughtStockByName(String name) {
+        int temp = stockExists(name);
+        return boughtStocks.get(temp);
     }
 }
