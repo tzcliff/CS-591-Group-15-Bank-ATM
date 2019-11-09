@@ -18,10 +18,12 @@ public class Main {
         Person manager = new Person("Christine", "Papadakis");
         BankManagerAccount managerAccount = new BankManagerAccount(manager);
         Bank bank = new Bank(managerAccount);
+        StockMarket stockMarket = new StockMarket();
 
         DBManager dbManager = new DBManager();
         dbManager.connect();
         Data.setBank(bank);
+        Data.setStockMarket(stockMarket);
         
         WindowsBuilder w = new WindowsBuilder();
        

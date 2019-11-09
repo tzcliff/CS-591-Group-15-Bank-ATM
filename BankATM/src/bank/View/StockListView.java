@@ -10,7 +10,8 @@ import java.awt.*;
 
         private JLabel headerLabel;
         private JTable table;
-        private JButton buyOrSell;
+        private JButton buy;
+        private JButton sell;
         private JButton stockPredict;
 
 
@@ -19,9 +20,7 @@ import java.awt.*;
             return stockPredict;
         }
 
-        public JButton getBuyOrSell() {
-            return buyOrSell;
-        }
+
 
         public JTable getTable() {
             return table;
@@ -40,19 +39,26 @@ import java.awt.*;
         public StockListView()
         {
             super(new BorderLayout());
-            buyOrSell = new JButton("Buy/Sell Stock");
+            buy = new JButton("Buy Stock");
+            sell = new JButton("Sell Stock");
             stockPredict = new JButton("Predict");
             JPanel topPan = new JPanel(new BorderLayout());
             headerLabel = new JLabel("List of the stocks");
             topPan.add(headerLabel, BorderLayout.NORTH);
             topPan.add(Box.createVerticalStrut(10));
-            topPan.add(buyOrSell, BorderLayout.WEST);
+            topPan.add(buy, BorderLayout.WEST);
+            topPan.add(sell, BorderLayout.CENTER);
             topPan.add(stockPredict, BorderLayout.EAST);
 
             add(topPan, BorderLayout.NORTH);
         }
 
+        public JButton getBuy() {
+            return buy;
+        }
 
-
+        public JButton getSell() {
+            return sell;
+        }
     }
 

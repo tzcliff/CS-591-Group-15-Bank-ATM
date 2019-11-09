@@ -108,11 +108,20 @@ public class ManagerStockView extends JPanel {
         this.msgLabel.setText(msgLabel);
     }
 
+    public JTextField getCurrentAvailableShareTextField() {
+        return currentAvailableShareTextField;
+    }
 
+    public JTextField getNameTextField() {
+        return nameTextField;
+    }
 
+    public JTextField getPriceTextField() {
+        return priceTextField;
+    }
 
-
-
-
+    public JTextField getTotalShareTextField() {
+        return totalShareTextField;
+    }
 }
 

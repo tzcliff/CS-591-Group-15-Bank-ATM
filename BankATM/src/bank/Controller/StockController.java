@@ -1,8 +1,6 @@
 package bank.Controller;
 
-import bank.LoggedUser;
-import bank.PanelData;
-import bank.StockMarket;
+import bank.*;
 import bank.View.*;
 
 import javax.swing.*;
@@ -12,16 +10,17 @@ import javax.swing.table.DefaultTableModel;
 
 public class StockController {
     private StockListView stockListView;
-    private StockTransactionView stockTransactionView;
+    private StockBuyView stockBuyView;
+    private StockSellView stockSellView;
     private StockPredict stockPredictView;
     private ManagerStockView managerStockView;
     private changeStockView changeStockView;
     public StockController() {
         stockListView = new StockListView();
-        stockTransactionView = new StockTransactionView();
-        stockPredictView = new StockPredict();
+        //stockTransactionView = new StockTransactionView();
+       // stockPredictView = new StockPredict();
         managerStockView = new ManagerStockView();
-        changeStockView = new changeStockView();
+        //changeStockView = new changeStockView();
         initController();
     }
     public void StockList()
@@ -34,11 +33,13 @@ public class StockController {
     public void newStockView()
     {
         managerStockView.setVisible(true);
-        PanelData.setParentPanel(stockListView);
+        PanelData.setParentPanel(managerStockView);
 
     }
 
     public void stockPredictView() {
+        stockPredictView = new StockPredict();
+        stockPredictView.getSaveButton().addActionListener(l ->predict());
         stockPredictView.setVisible(true);
         PanelData.setParentPanel(stockPredictView);
     }
@@ -54,12 +55,12 @@ public class StockController {
 
 
 
-                for (int i = 0; i < StockMarket.getStocks().size(); i++)
+                for (int i = 0; i < Data.getStockMarket().getStocks().size(); i++)
                 {
-                    Object[] objs = { StockMarket.getStocks().get(i).getName(),
-                            StockMarket.getStocks().get(i).getCurrentlyAvailableShares()
-                            , StockMarket.getStocks().get(i).getTotalShares()
-                            , StockMarket.getStocks().get(i).getCurrentPrice()
+                    Object[] objs = { Data.getStockMarket().getStocks().get(i).getName(),
+                            Data.getStockMarket().getStocks().get(i).getCurrentlyAvailableShares()
+                            , Data.getStockMarket().getStocks().get(i).getTotalShares()
+                            , Data.getStockMarket().getStocks().get(i).getCurrentPrice()
 
                             };
                     tableModel.addRow(objs);
@@ -82,31 +83,78 @@ public class StockController {
 
     public void initController()
     {
-        stockListView.getBuyOrSell().addActionListener(l ->stockTransaction());
-        stockTransactionView.getSaveButton().addActionListener(l ->sellOrBuyStock());
-        stockPredictView.getSaveButton().addActionListener(l ->predict());
+        stockListView.getBuy().addActionListener(l ->stockTransactionBuy());
+        stockListView.getSell().addActionListener(l ->stockTransactionSell());
+        //stockTransactionView.getSaveButton().addActionListener(l ->sellOrBuyStock());
+       // stockPredictView.getSaveButton().addActionListener(l ->predict());
         managerStockView.getSaveButton().addActionListener(l ->newStock());
         stockListView.getStockPredict().addActionListener(l ->stockPredictView());
         managerStockView.getChangeStockButton().addActionListener(l ->changeStockView());
-        changeStockView.getSaveButton().addActionListener(l ->changeStock());
+        //changeStockView.getSaveButton().addActionListener(l ->changeStock());
 
     }
 
     private void changeStock () {
+        String name =(String) changeStockView.getStockComboBox().getSelectedItem();
+        int totalShare = Integer.parseInt(changeStockView.getTotalShareTextField().getText());
+        int current = Integer.parseInt(changeStockView.getCurrentTextField().getText());
+        float price = Float.parseFloat(changeStockView.getPriceTextField().getText());
+        if(Data.getStockMarket().changeStockTotalShare(name, totalShare) && Data.getStockMarket().changeStockCurrentShare(name, current) && Data.getStockMarket().changeStockPrice(name, price )){
+            changeStockView.setMsgLabel("Successfully changed the attributes of the selected stock");
+        }
 
     }
 
     private void changeStockView() {
+        changeStockView = new changeStockView();
+        changeStockView.getSaveButton().addActionListener(l ->changeStock());
         changeStockView.setVisible(true);
         PanelData.setParentPanel(changeStockView);
     }
 
-    private void stockTransaction() {
-        stockTransactionView.setVisible(true);
-        PanelData.setParentPanel(stockTransactionView);
+    private void stockTransactionBuy() {
+        stockBuyView = new StockBuyView();
+        stockBuyView.getSaveButton().addActionListener(l ->BuyStock());
+        stockBuyView.setVisible(true);
+        PanelData.setParentPanel(stockBuyView);
     }
 
-    private void sellOrBuyStock() {
+    private void stockTransactionSell() {
+        stockSellView = new StockSellView();
+        stockSellView.getSaveButton().addActionListener(l ->SellStock());
+        stockSellView.setVisible(true);
+        PanelData.setParentPanel( stockSellView);
+    }
+
+    private void BuyStock() {
+        String name = (String) stockBuyView.getStockc().getSelectedItem();
+        int amount = Integer.parseInt(stockBuyView.getAmountTextField().getText());
+
+        int newCurrent = Data.getStockMarket().getStockByName(name).getCurrentlyAvailableShares() - amount;
+
+        if (newCurrent >= 0) {
+            LoggedUser.getProfile().getSecurityAccount().addNewSharesToStock(Data.getStockMarket().getStockByName(name), amount);
+            Data.getStockMarket().changeStockCurrentShare(name, newCurrent);
+            stockBuyView.setMsgLabel("Successfully buy stock!");
+        }
+        else {
+            stockBuyView.setMsgLabel("The amount of share you wanna buy is beyond the total share! ");
+        }
+
+
+    }
+
+    private void SellStock() {
+        String name = (String) stockSellView.getStockc().getSelectedItem();
+        int amount = Integer.parseInt(stockSellView.getAmountTextField().getText());
+
+        if (amount <= LoggedUser.getProfile().getSecurityAccount().getBoughtStockByName(name).getAmountOfStocks()) {
+                Float profit = LoggedUser.getProfile().getSecurityAccount().sellSharesOfStock(LoggedUser.getProfile().getSecurityAccount().getBoughtStockByName(name).getStock(), amount);
+                stockSellView.setMsgLabel("The profit you made is: " + profit);
+
+        } else {
+            stockSellView.setMsgLabel("The amount of share you wanna sell is beyond the share you have! ");
+        }
 
     }
 
@@ -115,6 +163,12 @@ public class StockController {
     }
 
     private void newStock() {
+        String name = managerStockView.getNameTextField().getText();
+        int totalShare = Integer.parseInt(managerStockView.getTotalShareTextField().getText());
+        int current = Integer.parseInt(managerStockView.getCurrentAvailableShareTextField().getText());
+        float price = Float.parseFloat(managerStockView.getPriceTextField().getText());
+        Data.getStockMarket().addStock(name, totalShare, current, price);
+        managerStockView.setMsgLabel("Successfully create a new stock");
 
     }
 }

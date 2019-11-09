@@ -16,11 +16,11 @@ import javax.swing.SpringLayout;
 
 import bank.*;
 
-public class StockTransactionView extends JPanel{
+public class StockBuyView extends JPanel{
 
-    private JComboBox transTypeDd;
-    private JLabel transTypeLabel;
-    private JComboBox<Stock> stockc;
+
+
+    private JComboBox stockc;
     private JLabel stockl;
 
     private JLabel amountLabel;
@@ -31,7 +31,7 @@ public class StockTransactionView extends JPanel{
     private DecimalFormatSymbols dfs;
     private DecimalFormat dFormat;
 
-    public StockTransactionView()
+    public StockBuyView()
     {
         super(new BorderLayout());
 
@@ -41,12 +41,10 @@ public class StockTransactionView extends JPanel{
         dFormat = new DecimalFormat ("#0.##", dfs);
 
 
-        transTypeLabel = new JLabel("Stock Transaction Type", JLabel.TRAILING);
-        transTypeDd = new JComboBox(StockTransactionType.values());
-        transTypeLabel.setLabelFor(transTypeDd);
+
 
         stockl = new JLabel("Stock", JLabel.TRAILING);
-        stockc = new JComboBox<Stock>();
+        stockc = new JComboBox();
         stockl.setLabelFor(stockc);
 //        for (var acc : LoggedUser.getProfile().getCheckingAccounts()) {
 //            accNameDd.addItem(acc);
@@ -55,15 +53,15 @@ public class StockTransactionView extends JPanel{
 //            accNameDd.addItem(acc);
 //        }
 
-        for (int i = 0; i< StockMarket.getStocks().size(); i++) {
-            stockc.addItem(StockMarket.getStocks().get(i));
+        for (int i = 0; i< Data.getStockMarket().getStocks().size(); i++) {
+            stockc.addItem(Data.getStockMarket().getStocks().get(i).getName());
         }
 
         amountLabel = new JLabel("Amount", JLabel.TRAILING);
         amountTextField = new JFormattedTextField(dFormat);
         amountLabel.setLabelFor(amountTextField);
 
-        saveButton = new JButton("Save");
+        saveButton = new JButton("Buy");
         msgLabel = new JLabel();
 
         JPanel jp = new JPanel(new SpringLayout());
@@ -74,12 +72,10 @@ public class StockTransactionView extends JPanel{
         gbc.fill = GridBagConstraints.HORIZONTAL;
         jp.add(stockl);
         jp.add(stockc);
-        jp.add(transTypeLabel);
-        jp.add(transTypeDd);
         jp.add(amountLabel);
         jp.add(amountTextField);
 
-        SpringUtilities.makeCompactGrid(jp, 3, 2, //rows, cols
+        SpringUtilities.makeCompactGrid(jp, 2, 2, //rows, cols
                 6, 6, //initX, initY
                 6, 6); //xPad, yPad
 
@@ -88,15 +84,9 @@ public class StockTransactionView extends JPanel{
         this.add(msgLabel, gbc);
     }
 
-    public JComboBox getTransTypeDd() {
-        return transTypeDd;
-    }
 
-    public void setTransTypeDd(JComboBox transTypeDd) {
-        this.transTypeDd = transTypeDd;
-    }
 
-    public JComboBox<Stock> getStockc() {
+    public JComboBox getStockc() {
         return stockc;
     }
 

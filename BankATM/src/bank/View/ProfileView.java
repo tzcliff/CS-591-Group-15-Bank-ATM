@@ -67,7 +67,7 @@ public class ProfileView extends JPanel{
 		passwordTextField = new JPasswordField(20);
 		passwordLabel.setLabelFor(passwordTextField);
 		
-		saveButton = new JButton("Save");
+		saveButton = new JButton("Sign Up ");
 		msgLabel = new JLabel();
 		
        
