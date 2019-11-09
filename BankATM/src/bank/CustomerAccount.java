@@ -74,7 +74,6 @@ public class CustomerAccount {
                 transactions.add(new Deposit(amount*Currency.getRate(currency.toString()), currency, receiverAccountNumber, receiverRoutingNumber));
                 return true;
             }
-
         }
 
         for (SavingsAccount savingsAccount :
@@ -84,7 +83,6 @@ public class CustomerAccount {
                 transactions.add(new Deposit(amount*Currency.getRate(currency.toString()), currency, receiverAccountNumber, receiverRoutingNumber));
                 return true;
             }
-
         }
         return false;
     }
@@ -100,7 +98,6 @@ public class CustomerAccount {
                 transactions.add(new Transfer(amount*Currency.getRate(currency.toString()), currency, senderAccountNumber, senderRoutingNumber, receiverAccountNumber, receiverRoutingNumber));
                 return true;
             }
-
         }
 
         for (SavingsAccount savingsAccount :
@@ -110,7 +107,6 @@ public class CustomerAccount {
                 transactions.add(new Transfer(amount*Currency.getRate(currency.toString()), currency, senderAccountNumber, senderRoutingNumber, receiverAccountNumber, receiverRoutingNumber));
                 return true;
             }
-
         }
         return false;
     }
@@ -129,7 +125,6 @@ public class CustomerAccount {
                     return false;
                 }
             }
-
         }
 
         for (SavingsAccount savingsAccount :
@@ -142,7 +137,6 @@ public class CustomerAccount {
                     return false;
                 }
             }
-
         }
         return false;
     }
@@ -161,7 +155,6 @@ public class CustomerAccount {
                     return false;
                 }
             }
-
         }
 
         for (SavingsAccount savingsAccount :
@@ -174,7 +167,6 @@ public class CustomerAccount {
                     return false;
                 }
             }
-
         }
         return false;
     }
@@ -250,5 +242,43 @@ public class CustomerAccount {
 
     public ArrayList<SavingsAccount> getSavingsAccounts() {
         return savingsAccounts;
+    }
+    
+    public boolean checkIfAccountExists(int targetAccountN, int targetRoutingN){
+        for (CheckingAccount checkingAccount :
+                checkingAccounts) {
+            if (checkingAccount.getAccountNumber() == targetAccountN && checkingAccount.getRoutingNumber() == targetRoutingN){
+                return true;
+            }
+        }
+        for (SavingsAccount savingsAccount :
+                savingsAccounts) {
+            if (savingsAccount.getAccountNumber() == targetAccountN && savingsAccount.getRoutingNumber() == targetAccountN){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkIfBalanceSufficientForTransfer(Float amount, int targetAccountN, int targetRoutingN){
+        for (CheckingAccount checkingAccount :
+                checkingAccounts) {
+            Boolean checkFlag = checkingAccount.checkIfBalanceSufficientForTransfer(amount, targetAccountN, targetRoutingN);
+            if (checkFlag != null){
+                return checkFlag;
+            }else{
+                return false;
+            }
+        }
+        for (SavingsAccount savingsAccount :
+                savingsAccounts) {
+            Boolean checkFlag = savingsAccount.checkIfBalanceSufficientForTransfer(amount, targetAccountN, targetRoutingN);
+            if (checkFlag != null){
+                return checkFlag;
+            }else{
+                return false;
+            }
+        }
+        return false;
     }
 }

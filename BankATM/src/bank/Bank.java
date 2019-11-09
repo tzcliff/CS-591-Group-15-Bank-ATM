@@ -237,4 +237,53 @@ public class Bank {
 //    public void setCurrentCustomer(CustomerAccount currentCustomer) {
 //        this.currentCustomer = currentCustomer;
 //    }
+
+    public boolean makeTransferIfPossible(Float amount, Currency currency, int senderAccN, int senderRoutN, int receiverAccountN, int receiverRoutingN){
+        if (checkIfTransferFeasible(amount, currency, senderAccN, senderRoutN, receiverAccountN, receiverRoutingN)){
+            makeTransfer(amount, currency, senderAccN, senderRoutN, receiverAccountN, receiverRoutingN);
+        }
+        return false;
+    }
+
+    public boolean checkIfTransferFeasible(Float amount, Currency currency, int senderAccN, int senderRoutN, int receiverAccountN, int receiverRoutingN){
+        if (!checkIfAccountExists(receiverAccountN, receiverRoutingN)){
+            return false;
+        }
+        Float amountInDollars = currency.convertTo("USD", amount);
+        if (!checkIfBalanceSufficient(amountInDollars, senderAccN, senderRoutN)){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean checkIfAccountExists(int receiverAccountN, int receiverRoutingN){
+        for (CustomerAccount customerAcc: customerAccounts) {
+            if (customerAcc.checkIfAccountExists(receiverAccountN, receiverRoutingN)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkIfBalanceSufficient(Float amount, int senderAccN, int senderRoutN){
+        for (CustomerAccount customerAcc: customerAccounts) {
+            if (customerAcc.checkIfBalanceSufficientForTransfer(amount, senderAccN, senderRoutN)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void makeTransfer(Float amount, Currency currency, int senderAccN, int senderRoutN, int receiverAccountN, int receiverRoutingN){
+        for (CustomerAccount customerAcc: customerAccounts) {
+            if (customerAcc.withdrawTransferAmount(amount, currency, senderAccN, senderRoutN, receiverAccountN, receiverRoutingN)){
+                break;
+            }
+        }
+        for (CustomerAccount customerAcc: customerAccounts) {
+            if (customerAcc.depositTransferAmount(amount, currency, senderAccN, senderRoutN, receiverAccountN, receiverRoutingN)){
+                break;
+            }
+        }
+    }
 }
