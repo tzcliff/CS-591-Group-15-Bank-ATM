@@ -13,6 +13,7 @@ public class StockController {
     private StockPeek stockPeekView;
     private ManagerStockView managerStockView;
     private changeStockView changeStockView;
+    private BoughtStockView boughtStockView;
     public StockController() {
         stockListView = new StockListView();
         //stockTransactionView = new StockTransactionView();
@@ -157,7 +158,15 @@ public class StockController {
     }
 
     private void predict() {
-        //stockPredictView.setMsgLabel();
+        String name = (String) stockPredictView.getStockBoughtc().getSelectedItem();
+        int amount = Integer.parseInt(stockPredictView.getAmountTextField().getText());
+        if (amount >= 0) {
+            Float profit = LoggedUser.getProfile().getSecurityAccount().peekPossibleProfit(LoggedUser.getProfile().getSecurityAccount().getBoughtStockByName(name).getStock(), amount);
+            stockPredictView.setMsgLabel("The profit you can make is: " + profit);
+        }
+        else {
+            stockPredictView.setMsgLabel("The amount must be bigger than zero");
+        }
     }
 
     private void newStock() {
@@ -169,4 +178,38 @@ public class StockController {
         managerStockView.setMsgLabel("Successfully create a new stock");
 
     }
+
+    public void ShowBoughtStock() {
+        boughtStockView = new BoughtStockView();
+        boughtStockView.setVisible(true);
+        PanelData.setParentPanel(boughtStockView);
+        bindDataBoughtStock();
+
+    }
+
+    private void bindDataBoughtStock()
+    {
+
+
+
+            String col[] = {"Stock Name","The share you have","The Bought Price","Current Price"};
+            DefaultTableModel tableModel = new DefaultTableModel(col, 0);
+
+            for (int i = 0; i < LoggedUser.getProfile().getSecurityAccount().getBoughtStocks().size(); i++)
+            {
+                Object[] objs = {
+                        LoggedUser.getProfile().getSecurityAccount().getBoughtStocks().get(i).getStock().getName(),
+                        LoggedUser.getProfile().getSecurityAccount().getBoughtStocks().get(i).getAmountOfStocks(),
+                        LoggedUser.getProfile().getSecurityAccount().getBoughtStocks().get(i).returnBoughtPrice(),
+                        LoggedUser.getProfile().getSecurityAccount().getBoughtStocks().get(i).getStock().getCurrentPrice()
+
+                };
+                tableModel.addRow(objs);
+            }
+
+            JTable table = new JTable(tableModel);
+            table.setFillsViewportHeight(true);
+            boughtStockView.setTable(table);
+
+        }
 }

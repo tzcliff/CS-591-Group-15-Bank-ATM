@@ -51,7 +51,7 @@ public class BoughtStock {
     public Float sellNStocks(int n){
         Float averagePricePaidForEachShare = totalAmountSpentOnBuying / sharesAmount;
         sharesAmount -= n;
-        //totalAmountSpentOnBuying -= averagePricePaidForEachShare * n;
+        totalAmountSpentOnBuying -= averagePricePaidForEachShare * n;
         //return n * (averagePricePaidForEachShare - stock.getCurrentPrice());
         return n * (stock.getCurrentPrice() - averagePricePaidForEachShare);
     }
@@ -62,5 +62,9 @@ public class BoughtStock {
         //return n * (averagePricePaidForEachShare - stock.getCurrentPrice());
         return n * (stock.getCurrentPrice() - averagePricePaidForEachShare);
 
+    }
+
+    public Float returnBoughtPrice() {
+        return totalAmountSpentOnBuying / sharesAmount;
     }
 }

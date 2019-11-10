@@ -62,7 +62,7 @@ public class LoginController {
 			PanelData.setSidePanel(custSideView);
 			LoggedUser.setProfile(loggedUser);
 			ProfileController proController = new ProfileController();
-			proController.showLoggedUserProfile(loggedUser);
+			proController.showUserProfile(loggedUser);
 		}
 		else
 		{
