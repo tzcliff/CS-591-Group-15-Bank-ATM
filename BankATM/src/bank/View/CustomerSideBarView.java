@@ -23,6 +23,7 @@ public class CustomerSideBarView extends JPanel {
 	private JButton logOutButton;
 	private JButton tradingAccountButton;
 	private JButton transfer;
+	private JButton boughtStock;
 
 	
 	public CustomerSideBarView()
@@ -37,6 +38,8 @@ public class CustomerSideBarView extends JPanel {
 		tradingAccountButton = new JButton("Trading Account");
 		logOutButton = new JButton("Log out");
 		transfer = new JButton("Transfer");
+		boughtStock = new JButton("The Bought Stock");
+
 
 		
 		this.setLayout(new GridBagLayout());
@@ -51,6 +54,7 @@ public class CustomerSideBarView extends JPanel {
 		this.add(loanListButton, gbc);
 		this.add(newLoanButton, gbc);
 		this.add(tradingAccountButton, gbc);
+		this.add(boughtStock, gbc);
 		this.add(transfer, gbc);
 
 		this.add(logOutButton, gbc);
@@ -119,6 +123,15 @@ public class CustomerSideBarView extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				TransferController transferController = new TransferController();
+
+			}
+		});
+
+		boughtStock.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				StockController stockController = new StockController();
+				stockController.ShowBoughtStock();
 
 			}
 		});
