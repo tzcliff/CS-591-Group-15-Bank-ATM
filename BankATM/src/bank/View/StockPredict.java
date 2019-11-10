@@ -88,7 +88,9 @@ public class StockPredict extends JPanel{
         this.add(msgLabel, gbc);
     }
 
-
+    public JComboBox getStockBoughtc() {
+        return stockBoughtc;
+    }
 
     public JFormattedTextField getAmountTextField() {
         return amountTextField;
