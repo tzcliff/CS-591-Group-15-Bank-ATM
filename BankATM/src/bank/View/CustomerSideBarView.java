@@ -67,7 +67,7 @@ public class CustomerSideBarView extends JPanel {
 				
 				//JPanel pa =  new ProfileView();		    	
 		        ProfileController proController = new ProfileController();
-		        proController.showLoggedUserProfile(LoggedUser.getProfile());
+		        proController.showUserProfile(LoggedUser.getProfile());
 				
 			}
 		});

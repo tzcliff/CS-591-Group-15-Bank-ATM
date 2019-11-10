@@ -20,10 +20,12 @@ import bank.PanelData;
 import bank.Person;
 import bank.View.ProfileListView;
 import bank.View.ProfileView;
+import bank.View.UserProfileView;
 
 public class ProfileController {
 
 	private JPanel profileView;
+	private JPanel userProfileView;
 	private JPanel profileList;
 	private boolean isNew;
 	//private String custId;
@@ -38,7 +40,7 @@ public class ProfileController {
 
 	public void SaveData()
 	{
-		
+
 		if (isNew)
 		{
 			Person p = new Person(((ProfileView)profileView).getFirstNameTextField().getText(), ((ProfileView)profileView).getLastNameTextField().getText());
@@ -50,12 +52,14 @@ public class ProfileController {
 		    LoggedUser.getProfile().getPerson().getName().setLastName(((ProfileView)profileView).getLastNameTextField().getText());
 		    ((ProfileView)profileView).setMsgLabel("Data Saved");
 		}
-		
+
 	}
 
 	public ProfileController() {
 		profileView = new ProfileView();
 		profileList = new ProfileListView();
+		userProfileView = new UserProfileView();
+
 		
 		initController();
 		//custId = ""; 
@@ -66,6 +70,13 @@ public class ProfileController {
 		profileView.setVisible(true);		
 		PanelData.setParentPanel(profileView);
 		BindCustomerData(ca);
+	}
+	//
+	public void showUserProfile(CustomerAccount ca)
+	{
+		userProfileView.setVisible(true);
+		PanelData.setParentPanel(userProfileView);
+		BindLoggedCustomerData(ca);
 	}
 	
 	public void showNewUser()
@@ -84,20 +95,18 @@ public class ProfileController {
 		
 	}
 
+	private void BindLoggedCustomerData(CustomerAccount ca)
+	{
+		((UserProfileView)userProfileView).setFirstNameTextField(ca.getPerson().getName().getFirstName().toString());
+		((UserProfileView)userProfileView).setLastNameTextField(ca.getPerson().getName().getLastName().toString());
+
+
+
+	}
+
 	private void bindData()
 	{
-		/*
-		if (LoggedUser.getProfile() != null)
-		{
-			System.out.println(LoggedUser.getProfile().getFirstName());
-			((ProfileView)profileView).setFirstNameTextField(LoggedUser.getProfile().getFirstName());
-			((ProfileView)profileView).setLastNameTextField(LoggedUser.getProfile().getLastName());
-			((ProfileView)profileView).setMiddleNameTextField(LoggedUser.getProfile().getMiddleName());
-			((ProfileView)profileView).setAddressTextField(LoggedUser.getProfile().getAddress());
-			((ProfileView)profileView).setEmailTextField(LoggedUser.getProfile().getEmail());
-			((ProfileView)profileView).setPasswordTextField(LoggedUser.getProfile().getPassword());
-		}
-		*/
+
 	}
 
 	public boolean isNew() {
