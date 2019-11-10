@@ -217,7 +217,17 @@ public class CustomerAccount {
     }
 
     public ArrayList<Transaction> getTransactions() {
-        return transactions;
+        ArrayList<Transaction> allButDepositTransfTransactions = new ArrayList<Transaction>();
+        for (Transaction transaction : transactions){
+            if (transaction instanceof Transfer){
+                if (checkIfAccountExists(transaction.getSenderAccountNumber(), transaction.getSenderRoutingNumber())){
+                    allButDepositTransfTransactions.add(transaction);
+                }
+            }else{
+                allButDepositTransfTransactions.add(transaction);
+            }
+        }
+        return allButDepositTransfTransactions;
     }
 
     public SavingsAccount getLastSavingsAccount(){

@@ -16,7 +16,7 @@ import javax.swing.SpringLayout;
 
 import bank.*;
 
-public class StockPredict extends JPanel{
+public class StockPeek extends JPanel{
 
 
 
@@ -31,7 +31,7 @@ public class StockPredict extends JPanel{
     private DecimalFormatSymbols dfs;
     private DecimalFormat dFormat;
 
-    public StockPredict()
+    public StockPeek()
     {
         super(new BorderLayout());
 
@@ -64,7 +64,7 @@ public class StockPredict extends JPanel{
         amountTextField = new JFormattedTextField(dFormat);
         amountLabel.setLabelFor(amountTextField);
 
-        saveButton = new JButton("Predict");
+        saveButton = new JButton("See possible profit");
         msgLabel = new JLabel();
 
         JPanel jp = new JPanel(new SpringLayout());

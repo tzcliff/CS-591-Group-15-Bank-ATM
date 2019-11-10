@@ -4,15 +4,13 @@ import bank.*;
 import bank.View.*;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 public class StockController {
     private StockListView stockListView;
     private StockBuyView stockBuyView;
     private StockSellView stockSellView;
-    private StockPredict stockPredictView;
+    private StockPeek stockPeekView;
     private ManagerStockView managerStockView;
     private changeStockView changeStockView;
     public StockController() {
@@ -38,10 +36,10 @@ public class StockController {
     }
 
     public void stockPredictView() {
-        stockPredictView = new StockPredict();
-        stockPredictView.getSaveButton().addActionListener(l ->predict());
-        stockPredictView.setVisible(true);
-        PanelData.setParentPanel(stockPredictView);
+        stockPeekView = new StockPeek();
+        stockPeekView.getSaveButton().addActionListener(l ->predict());
+        stockPeekView.setVisible(true);
+        PanelData.setParentPanel(stockPeekView);
     }
 
     public void bindData(){
@@ -88,7 +86,7 @@ public class StockController {
         //stockTransactionView.getSaveButton().addActionListener(l ->sellOrBuyStock());
        // stockPredictView.getSaveButton().addActionListener(l ->predict());
         managerStockView.getSaveButton().addActionListener(l ->newStock());
-        stockListView.getStockPredict().addActionListener(l ->stockPredictView());
+        stockListView.getStockPeekProfit().addActionListener(l ->stockPredictView());
         managerStockView.getChangeStockButton().addActionListener(l ->changeStockView());
         //changeStockView.getSaveButton().addActionListener(l ->changeStock());
 

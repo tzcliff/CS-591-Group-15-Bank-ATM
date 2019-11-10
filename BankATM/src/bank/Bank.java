@@ -227,6 +227,10 @@ public class Bank {
         ArrayList<Transaction> transactions = new ArrayList<Transaction>();
         for (CustomerAccount customerAccount :
                 customerAccounts) {
+            for (Transaction transaction :
+                    customerAccount.getTransactions()) {
+
+            }
             transactions.addAll(customerAccount.getTransactions());
         }
         return transactions;
