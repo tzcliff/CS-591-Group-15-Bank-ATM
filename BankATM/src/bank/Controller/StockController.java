@@ -10,7 +10,7 @@ public class StockController {
     private StockListView stockListView;
     private StockBuyView stockBuyView;
     private StockSellView stockSellView;
-    private StockPeek stockPeekView;
+    private StockPeekView stockPeekView;
     private ManagerStockView managerStockView;
     private changeStockView changeStockView;
     private BoughtStockView boughtStockView;
@@ -37,7 +37,7 @@ public class StockController {
     }
 
     public void stockPredictView() {
-        stockPeekView = new StockPeek();
+        stockPeekView = new StockPeekView();
         stockPeekView.getSaveButton().addActionListener(l ->predict());
         stockPeekView.setVisible(true);
         PanelData.setParentPanel(stockPeekView);
@@ -158,14 +158,14 @@ public class StockController {
     }
 
     private void predict() {
-        String name = (String) stockPredictView.getStockBoughtc().getSelectedItem();
-        int amount = Integer.parseInt(stockPredictView.getAmountTextField().getText());
+        String name = (String) stockPeekView.getStockBoughtc().getSelectedItem();
+        int amount = Integer.parseInt(stockPeekView.getAmountTextField().getText());
         if (amount >= 0) {
             Float profit = LoggedUser.getProfile().getSecurityAccount().peekPossibleProfit(LoggedUser.getProfile().getSecurityAccount().getBoughtStockByName(name).getStock(), amount);
-            stockPredictView.setMsgLabel("The profit you can make is: " + profit);
+            stockPeekView.setMsgLabel("The profit you can make is: " + profit);
         }
         else {
-            stockPredictView.setMsgLabel("The amount must be bigger than zero");
+            stockPeekView.setMsgLabel("The amount must be bigger than zero");
         }
     }
 
@@ -189,8 +189,6 @@ public class StockController {
 
     private void bindDataBoughtStock()
     {
-
-
 
             String col[] = {"Stock Name","The share you have","The Bought Price","Current Price"};
             DefaultTableModel tableModel = new DefaultTableModel(col, 0);

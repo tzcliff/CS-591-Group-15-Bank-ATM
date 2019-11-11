@@ -40,7 +40,7 @@ public class WindowsBuilder {
         frame = new JFrame();
         frame.setVisible(true);
 		PanelData.InitiatePanelData(frame);		
-        LoginController loginController = new LoginController();	
+        LoginController loginController = new LoginController();
         
 	}
 

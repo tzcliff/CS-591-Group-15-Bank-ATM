@@ -16,7 +16,7 @@ import javax.swing.SpringLayout;
 
 import bank.*;
 
-public class StockPeek extends JPanel{
+public class StockPeekView extends JPanel{
 
 
 
@@ -31,7 +31,7 @@ public class StockPeek extends JPanel{
     private DecimalFormatSymbols dfs;
     private DecimalFormat dFormat;
 
-    public StockPeek()
+    public StockPeekView()
     {
         super(new BorderLayout());
 
