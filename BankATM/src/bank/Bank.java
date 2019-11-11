@@ -299,26 +299,26 @@ public class Bank {
         }
     }
 
-    public void saveCustomerAccounts(DBManager dbManager){
-        for (CustomerAccount customerAccount : customerAccounts) {
-            dbManager.addPerson(customerAccount);
-        }
-        for (CustomerAccount customerAccount : customerAccounts) {
-            for (CheckingAccount checkingAccount : customerAccount.getCheckingAccounts()) {
-                dbManager.addCheckingAccount(checkingAccount);
-            }
-            for (SavingsAccount savingsAccount : customerAccount.getSavingsAccounts()) {
-                dbManager.addSavingAccount(savingsAccount);
-            }
-            for (BoughtStock boughtStock : customerAccount.getSecurityAccount().getBoughtStocks()) {
-                dbManager.addBoughtStock(boughtStock, customerAccount.getSecurityAccount());
-            }
-            for (Transaction transaction : customerAccount.getAllTransactions()) {
-                dbManager.addTransaction(transaction);
-            }
-            for (Loan loan : customerAccount.getLoans()) {
-                dbManager.addLoan(loan, customerAccount);
-            }
-        }
-    }
+//    public void saveCustomerAccounts(DBManager dbManager){
+//        for (CustomerAccount customerAccount : customerAccounts) {
+//            dbManager.addPerson(customerAccount);
+//        }
+//        for (CustomerAccount customerAccount : customerAccounts) {
+//            for (CheckingAccount checkingAccount : customerAccount.getCheckingAccounts()) {
+//                dbManager.addCheckingAccount(checkingAccount, customerAccount);
+//            }
+//            for (SavingsAccount savingsAccount : customerAccount.getSavingsAccounts()) {
+//                dbManager.addSavingAccount(savingsAccount, customerAccount);
+//            }
+//            for (BoughtStock boughtStock : customerAccount.getSecurityAccount().getBoughtStocks()) {
+//                dbManager.addBoughtStock(boughtStock, customerAccount.getSecurityAccount());
+//            }
+////            for (Transaction transaction : customerAccount.getAllTransactions()) {
+////                dbManager.addTransaction(transaction);
+////        }
+//            for (Loan loan : customerAccount.getLoans()) {
+//                dbManager.addLoan(loan, customerAccount);
+//            }
+//        }
+//    }
 }

@@ -21,13 +21,13 @@ public class Main {
         StockMarket stockMarket = new StockMarket();
 
         DBManager dbManager = new DBManager();
+
         dbManager.connect();
+
         Data.setBank(bank);
         Data.setStockMarket(stockMarket);
-        
+
         WindowsBuilder w = new WindowsBuilder(dbManager);
-       
-        
     }
     
    

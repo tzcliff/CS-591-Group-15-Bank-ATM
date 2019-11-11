@@ -32,7 +32,7 @@ public class CustomerAccount {
         this.savingsAccounts = new ArrayList<SavingsAccount>();
         this.transactions = new ArrayList<Transaction>();
         this.loans= new ArrayList<Loan>();
-        securityAccount = new SecurityAccount(0.0f, 0, 0, true, new Currency("USD"), 0.0f, 0.0f);
+        securityAccount = new SecurityAccount(0.0f, 1, 10000, true, new Currency("USD"), 0.0f, 0.0f);
     }
 
     public CustomerAccount(Person person) {

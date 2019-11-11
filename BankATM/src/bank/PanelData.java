@@ -51,7 +51,7 @@ public class PanelData {
 			@Override
 			public void windowClosing(WindowEvent e)
 			{
-				Data.getBank().saveCustomerAccounts(dbManager);
+				//Data.getBank().saveCustomerAccounts(dbManager);
 				Data.getStockMarket().saveStocks(dbManager);
 				System.out.println("Closed");
 				e.getWindow().dispose();
