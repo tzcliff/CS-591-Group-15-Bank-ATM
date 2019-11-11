@@ -14,6 +14,7 @@ import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import javax.swing.JLabel;
 
 public class WindowsBuilder {
@@ -36,7 +37,43 @@ public class WindowsBuilder {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize(DBManager dbManager) {
-		
+
+		Data.getStockMarket().stocks = (ArrayList<Stock>) dbManager.readStock();
+		for(Stock stock : Data.getStockMarket().stocks){
+			System.out.println(stock.getName());
+		}
+		for(CheckingAccount checkingAccount : dbManager.readCheckingAccout("1", "1")){
+			System.out.println(checkingAccount.getAccountNumber());
+		}
+
+		for(SavingsAccount savingsAccount : dbManager.readSavingAccount("1", "1")){
+			System.out.println(savingsAccount.getAccountNumber());
+		}
+
+		for(SecurityAccount securityAccount : dbManager.readSecurityAccount("1", "1")){
+			System.out.println(securityAccount.getAccountNumber());
+		}
+		for(BoughtStock boughtStock : dbManager.readBoughtStock(new SecurityAccount(0.0f, 1,
+				10000, true, new Currency("USD"), 0.0f, 0.0f))){
+			System.out.println(boughtStock.getStock().getTotalShares());
+		}
+		for(Deposit deposit : dbManager.readDeposit()){
+			System.out.println("Deposit");
+			System.out.println(deposit.amount);
+		}
+		for(Withdrawal withdrawal : dbManager.readWithdrawal()){
+			System.out.println("Withdrawal");
+			System.out.println(withdrawal.amount);
+		}
+		for(Transfer transfer: dbManager.readTransfer()){
+			System.out.println("Transfer");
+			System.out.println(transfer.amount);
+		}
+
+
+
+
+
 		
         frame = new JFrame();
         frame.setVisible(true);

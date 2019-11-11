@@ -99,7 +99,11 @@ public class DBManager {
 
         try {
             Statement stmt=con.createStatement();
-            ResultSet rs=stmt.executeQuery("select * from account WHERE type = \'C\', \'person_name = "+ firstName + " " + lastName+"\'");
+            String sql = "select * from account WHERE type = \'C\' AND person_name = \'"+ firstName + " " + lastName+"\'";
+            System.out.println(sql);
+            ResultSet rs=stmt.executeQuery(sql);
+
+
             CheckingAccount temp;
             while(rs.next()) {
 
@@ -119,7 +123,9 @@ public class DBManager {
 
         try {
             Statement stmt=con.createStatement();
-            ResultSet rs=stmt.executeQuery("select * from account WHERE type = \'S\', \'person_name = "+ firstName + " " + lastName+"\'");
+            String sql = "select * from account WHERE type = \'S\' AND person_name = \'"+ firstName + " " + lastName+"\'";
+            System.out.println(sql);
+            ResultSet rs=stmt.executeQuery(sql);
             SavingsAccount temp;
             while(rs.next()) {
 
@@ -133,13 +139,15 @@ public class DBManager {
     }
 
 
-    public List<SecurityAccount> readSecuityAccount(String firstName, String lastName){
+    public List<SecurityAccount> readSecurityAccount(String firstName, String lastName){
         List<SecurityAccount> list = new ArrayList<>();
 
 
         try {
             Statement stmt=con.createStatement();
-            ResultSet rs=stmt.executeQuery("select * from account WHERE type = \'I\', \'person_name = "+ firstName + " " + lastName+"\';");
+            String sql = "select * from account WHERE type = \'I\' AND person_name = \'"+ firstName + " " + lastName+"\';";
+            System.out.println(sql);
+            ResultSet rs=stmt.executeQuery(sql);
             SecurityAccount temp;
             while(rs.next()) {
 
@@ -157,7 +165,10 @@ public class DBManager {
         List<Stock> list = new ArrayList<>();
         try {
             Statement stmt=con.createStatement();
-            ResultSet rs=stmt.executeQuery("select * from stock");
+
+            String sql = "select * from stock";
+            System.out.println(sql);
+            ResultSet rs=stmt.executeQuery(sql);
             Stock temp;
             while(rs.next()) {
 
@@ -173,8 +184,9 @@ public class DBManager {
         Stock temp = null;
         try {
             Statement stmt=con.createStatement();
-            ResultSet rs=stmt.executeQuery("select * from stock WHERE name = " + stock_name + ";");
-
+            String sql = "select * from stock WHERE name = \'" + stock_name + "\';";
+            System.out.println(sql);
+            ResultSet rs=stmt.executeQuery(sql);
             while(rs.next()) {
 
                 temp = new Stock(rs.getFloat("price"), rs.getInt("total_shares"), rs.getInt("avai_shares"), rs.getString("name"));
@@ -189,7 +201,9 @@ public class DBManager {
         List<BoughtStock> list = new ArrayList<>();
         try {
             Statement stmt=con.createStatement();
-            ResultSet rs=stmt.executeQuery("select * from bought_stock WHERE account_id = "+securityAccount.getRoutingNumber() + securityAccount.getAccountNumber()+";");
+            String sql = "select * from bank_atm.bought_stock WHERE account_id = "+securityAccount.getRoutingNumber() + securityAccount.getAccountNumber()+";";
+            System.out.println(sql);
+            ResultSet rs=stmt.executeQuery(sql);
             BoughtStock temp;
 
             while(rs.next()) {
@@ -209,7 +223,9 @@ public class DBManager {
         List<Deposit> list = new ArrayList<>();
         try {
             Statement stmt=con.createStatement();
-            ResultSet rs=stmt.executeQuery("select * from transaction WHERE type = \'D\'");
+            String sql = "select * from transaction WHERE type = \'D\'";
+            System.out.println(sql);
+            ResultSet rs=stmt.executeQuery(sql);
             Deposit temp;
 
             while(rs.next()) {
@@ -225,7 +241,9 @@ public class DBManager {
         List<Withdrawal> list = new ArrayList<>();
         try {
             Statement stmt=con.createStatement();
-            ResultSet rs=stmt.executeQuery("select * from transaction WHERE type = \'W\'");
+            String sql = "select * from transaction WHERE type = \'W\'";
+            System.out.println(sql);
+            ResultSet rs=stmt.executeQuery(sql);
             Withdrawal temp;
 
             while(rs.next()) {
@@ -241,7 +259,9 @@ public class DBManager {
         List<Transfer> list = new ArrayList<>();
         try {
             Statement stmt=con.createStatement();
-            ResultSet rs=stmt.executeQuery("select * from transaction WHERE type = \'T\'");
+            String sql = "select * from transaction WHERE type = \'T\'";
+            System.out.println(sql);
+            ResultSet rs=stmt.executeQuery(sql);
             Transfer temp;
 
             while(rs.next()) {
