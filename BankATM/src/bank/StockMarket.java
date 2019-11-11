@@ -1,5 +1,7 @@
 package bank;
 
+import bank.MySql.DBManager;
+
 import java.util.ArrayList;
 
 public class StockMarket {
@@ -70,5 +72,11 @@ public class StockMarket {
 
     public  ArrayList<Stock> getStocks() {
         return stocks;
+    }
+
+    public void saveStocks(DBManager dbManager){
+        for (Stock stock : stocks) {
+            dbManager.addStock(stock);
+        }
     }
 }

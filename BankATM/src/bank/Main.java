@@ -25,7 +25,7 @@ public class Main {
         Data.setBank(bank);
         Data.setStockMarket(stockMarket);
         
-        WindowsBuilder w = new WindowsBuilder();
+        WindowsBuilder w = new WindowsBuilder(dbManager);
        
         
     }

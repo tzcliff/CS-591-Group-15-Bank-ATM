@@ -1,9 +1,13 @@
 package bank;
 
+import bank.MySql.DBManager;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -15,7 +19,7 @@ public class PanelData {
 	private static  JPanel sidePanel;
 	private static  JPanel headerPanel;
 	//private static JFrame frame;
-	public static void InitiatePanelData(JFrame frame)
+	public static void InitiatePanelData(JFrame frame, DBManager dbManager)
 	{
 		//frame = new JFrame();
 		frame.setBounds(100, 100, 1050, 500);
@@ -41,6 +45,18 @@ public class PanelData {
 		flowLayout.setVgap(10);
 		flowLayout.setHgap(20);
 		frame.getContentPane().add(sidePanel, BorderLayout.WEST);
+
+		frame.addWindowListener(new WindowAdapter()
+		{
+			@Override
+			public void windowClosing(WindowEvent e)
+			{
+				Data.getBank().saveCustomerAccounts(dbManager);
+				Data.getStockMarket().saveStocks(dbManager);
+				System.out.println("Closed");
+				e.getWindow().dispose();
+			}
+		});
 		
 		//JPanel sidePn = (JPanel) new SideBarView(parentPanel);
 		//sidePanel.add(sidePn);

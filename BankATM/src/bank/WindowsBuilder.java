@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import bank.Controller.LoginController;
+import bank.MySql.DBManager;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -27,19 +28,19 @@ public class WindowsBuilder {
 	/**
 	 * Create the application.
 	 */
-	public WindowsBuilder() {
-		initialize();
+	public WindowsBuilder(DBManager dbManager) {
+		initialize(dbManager);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(DBManager dbManager) {
 		
 		
         frame = new JFrame();
         frame.setVisible(true);
-		PanelData.InitiatePanelData(frame);		
+		PanelData.InitiatePanelData(frame, dbManager);
         LoginController loginController = new LoginController();	
         
 	}
