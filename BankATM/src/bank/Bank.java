@@ -299,26 +299,43 @@ public class Bank {
         }
     }
 
-//    public void saveCustomerAccounts(DBManager dbManager){
-//        for (CustomerAccount customerAccount : customerAccounts) {
-//            dbManager.addPerson(customerAccount);
-//        }
-//        for (CustomerAccount customerAccount : customerAccounts) {
-//            for (CheckingAccount checkingAccount : customerAccount.getCheckingAccounts()) {
-//                dbManager.addCheckingAccount(checkingAccount, customerAccount);
-//            }
-//            for (SavingsAccount savingsAccount : customerAccount.getSavingsAccounts()) {
-//                dbManager.addSavingAccount(savingsAccount, customerAccount);
-//            }
-//            for (BoughtStock boughtStock : customerAccount.getSecurityAccount().getBoughtStocks()) {
-//                dbManager.addBoughtStock(boughtStock, customerAccount.getSecurityAccount());
-//            }
-////            for (Transaction transaction : customerAccount.getAllTransactions()) {
-////                dbManager.addTransaction(transaction);
-////        }
-//            for (Loan loan : customerAccount.getLoans()) {
-//                dbManager.addLoan(loan, customerAccount);
-//            }
-//        }
-//    }
+    public void saveCustomerAccounts(DBManager dbManager){
+        for (CustomerAccount customerAccount : customerAccounts) {
+            dbManager.addPerson(customerAccount);
+        }
+        for (CustomerAccount customerAccount : customerAccounts) {
+            for (CheckingAccount checkingAccount : customerAccount.getCheckingAccounts()) {
+                dbManager.addCheckingAccount(checkingAccount, customerAccount);
+            }
+            for (SavingsAccount savingsAccount : customerAccount.getSavingsAccounts()) {
+                dbManager.addSavingAccount(savingsAccount, customerAccount);
+            }
+            for (BoughtStock boughtStock : customerAccount.getSecurityAccount().getBoughtStocks()) {
+                dbManager.addBoughtStock(boughtStock, customerAccount.getSecurityAccount());
+            }
+            for (Transaction transaction : customerAccount.getAllTransactions()) {
+                if (transaction instanceof Deposit){
+                    dbManager.addDeposit((Deposit)transaction);
+                }else if (transaction instanceof Withdrawal){
+                    dbManager.addWithdrawal((Withdrawal)transaction);
+                }else if (transaction instanceof Transfer){
+                    dbManager.addTransfer((Transfer)transaction);
+                }else{
+                    try {
+                        throw new Exception("Tried to save to database invalid type of transaction");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            for (Loan loan : customerAccount.getLoans()) {
+                dbManager.addLoan(loan, customerAccount);
+            }
+            dbManager.addSecurityAccount( customerAccount.getSecurityAccount(), customerAccount);
+        }
+    }
+
+    public void loadCustomerAccounts(DBManager dbManager){
+
+    }
 }

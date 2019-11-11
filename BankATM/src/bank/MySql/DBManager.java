@@ -93,7 +93,7 @@ public class DBManager {
 
 
     // SELECT
-    public List<CheckingAccount> readCheckingAccout(String firstName, String lastName){
+    public List<CheckingAccount> readCheckingAccounts(String firstName, String lastName){
         List<CheckingAccount> list = new ArrayList<>();
 
 
@@ -117,7 +117,7 @@ public class DBManager {
     }
 
 
-    public List<SavingsAccount> readSavingAccount(String firstName, String lastName){
+    public List<SavingsAccount> readSavingAccounts(String firstName, String lastName){
         List<SavingsAccount> list = new ArrayList<>();
 
 
@@ -139,7 +139,7 @@ public class DBManager {
     }
 
 
-    public List<SecurityAccount> readSecurityAccount(String firstName, String lastName){
+    public List<SecurityAccount> readSecurityAccounts(String firstName, String lastName){
         List<SecurityAccount> list = new ArrayList<>();
 
 
@@ -161,7 +161,7 @@ public class DBManager {
         return list;
     }
 
-    public List<Stock> readStock(){
+    public List<Stock> readStocks(){
         List<Stock> list = new ArrayList<>();
         try {
             Statement stmt=con.createStatement();
@@ -197,7 +197,7 @@ public class DBManager {
         return temp;
     }
 
-    public List<BoughtStock> readBoughtStock(SecurityAccount securityAccount){
+    public List<BoughtStock> readBoughtStocks(SecurityAccount securityAccount){
         List<BoughtStock> list = new ArrayList<>();
         try {
             Statement stmt=con.createStatement();
@@ -219,7 +219,7 @@ public class DBManager {
     }
 
 
-    public List<Deposit> readDeposit(){
+    public List<Deposit> readDeposits(){
         List<Deposit> list = new ArrayList<>();
         try {
             Statement stmt=con.createStatement();
@@ -237,7 +237,7 @@ public class DBManager {
         catch(Exception e){ System.out.println(e);}
         return list;
     }
-    public List<Withdrawal> readWithdrawal(){
+    public List<Withdrawal> readWithdrawals(){
         List<Withdrawal> list = new ArrayList<>();
         try {
             Statement stmt=con.createStatement();
@@ -255,7 +255,7 @@ public class DBManager {
         catch(Exception e){ System.out.println(e);}
         return list;
     }
-    public List<Transfer> readTransfer(){
+    public List<Transfer> readTransfers(){
         List<Transfer> list = new ArrayList<>();
         try {
             Statement stmt=con.createStatement();
@@ -309,7 +309,6 @@ public class DBManager {
 
     // DELETE
     public void deletePerson(){
-
         String sql = "DELETE FROM bank_atm.person";
         sqlExecute(sql);
     }
