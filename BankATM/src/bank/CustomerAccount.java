@@ -50,6 +50,10 @@ public class CustomerAccount {
                 0.0f, 0.0f, 0.0f,0.0f));
     }
 
+    public void addNewCheckingAccount(CheckingAccount checkingAccount){
+        checkingAccounts.add(checkingAccount);
+    }
+
     public SecurityAccount getSecurityAccount() {
         return securityAccount;
     }
@@ -60,6 +64,10 @@ public class CustomerAccount {
                 0.0f, 0.0f, 0.0f));
     }
 
+    public void addNewSavingsAccount(SavingsAccount savingsAccount){
+        savingsAccounts.add(savingsAccount);
+    }
+
     public boolean addNewLoan(Float amount, Currency currency){
         if (collateral){
             //Currency currency = new Currency("USD");
@@ -67,6 +75,15 @@ public class CustomerAccount {
             return true;
         }
         return false;
+    }
+
+    public boolean addNewLoan(Loan loan){
+        loans.add(loan);
+        return true;
+    }
+
+    public void addExistingDepositTransaction(Deposit deposit){
+        transactions.add(deposit);
     }
 
     // Method that tries to find in this customer the account specified by receiverAccountNumber and receiverRoutingNumber to perform a deposit
@@ -115,6 +132,10 @@ public class CustomerAccount {
             }
         }
         return false;
+    }
+
+    public void addExistingWithdrawalTransaction(Withdrawal withdrawal){
+        transactions.add(withdrawal);
     }
 
     // Method that tries to find in this customer the account specified by receiverAccountNumber and receiverRoutingNumber to perform a withdrawal
@@ -175,6 +196,10 @@ public class CustomerAccount {
             }
         }
         return false;
+    }
+
+    public void addExistingTransferTransaction(Transfer transfer){
+        transactions.add(transfer);
     }
 
     // Method that is called if the second part of a transfer fails. The purpose of this method is to give back the money to the account
@@ -300,5 +325,9 @@ public class CustomerAccount {
             }
         }
         return false;
+    }
+
+    public void setSecurityAccount(SecurityAccount securityAccount) {
+        this.securityAccount = securityAccount;
     }
 }

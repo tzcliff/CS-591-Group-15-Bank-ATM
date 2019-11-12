@@ -24,6 +24,9 @@ public class Main {
 
         dbManager.connect();
 
+        bank.loadCustomerAccounts(dbManager);
+        stockMarket.loadAllStocks(dbManager);
+
         Data.setBank(bank);
         Data.setStockMarket(stockMarket);
 

@@ -94,7 +94,7 @@ public class DBManager {
 
 
     // SELECT
-    public List<Person> readPerson(){
+    public List<Person> readPersons(){
         List<Person> list = new ArrayList<>();
 
 

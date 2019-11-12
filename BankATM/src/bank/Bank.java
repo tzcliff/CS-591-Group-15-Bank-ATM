@@ -310,6 +310,7 @@ public class Bank {
             for (SavingsAccount savingsAccount : customerAccount.getSavingsAccounts()) {
                 dbManager.addSavingAccount(savingsAccount, customerAccount);
             }
+            dbManager.addSecurityAccount(customerAccount.getSecurityAccount(), customerAccount);
             for (BoughtStock boughtStock : customerAccount.getSecurityAccount().getBoughtStocks()) {
                 dbManager.addBoughtStock(boughtStock, customerAccount.getSecurityAccount());
             }
@@ -331,11 +332,46 @@ public class Bank {
             for (Loan loan : customerAccount.getLoans()) {
                 dbManager.addLoan(loan, customerAccount);
             }
-            dbManager.addSecurityAccount( customerAccount.getSecurityAccount(), customerAccount);
+        }
+    }
+
+    public void loadAllTransactionsOfAccount(DBManager dbManager, CustomerAccount tmpCustomerAccount, Account account){
+        for (Deposit deposit : dbManager.readDepositsByAccount(account.getRoutingNumber(), account.getAccountNumber())) {
+            tmpCustomerAccount.addExistingDepositTransaction(deposit);
+        }
+
+        for (Withdrawal withdrawal : dbManager.readWithdrawalsByAccount(account.getRoutingNumber(), account.getAccountNumber())) {
+            tmpCustomerAccount.addExistingWithdrawalTransaction(withdrawal);
+        }
+
+        for (Transfer transfer : dbManager.readTransfersByAccount(account.getRoutingNumber(), account.getAccountNumber())) {
+            tmpCustomerAccount.addExistingTransferTransaction(transfer);
         }
     }
 
     public void loadCustomerAccounts(DBManager dbManager){
+        for (Person person : dbManager.readPersons()) {
+            CustomerAccount tmpCustomerAccount = new CustomerAccount(person, true);
+            customerAccounts.add(tmpCustomerAccount);
+
+            for (CheckingAccount checkingAccount : dbManager.readCheckingAccounts(person.getName().getFirstName(), person.getName().getFirstName())) {
+                tmpCustomerAccount.addNewCheckingAccount(checkingAccount);
+                loadAllTransactionsOfAccount(dbManager, tmpCustomerAccount, checkingAccount);
+            }
+
+            for (SavingsAccount savingsAccount : dbManager.readSavingAccounts(person.getName().getFirstName(), person.getName().getFirstName())) {
+                tmpCustomerAccount.addNewSavingsAccount(savingsAccount);
+                loadAllTransactionsOfAccount(dbManager, tmpCustomerAccount, savingsAccount);
+            }
+
+            tmpCustomerAccount.setSecurityAccount(dbManager.readSecurityAccounts(person.getName().getFirstName(), person.getName().getFirstName()).get(0));
+
+            tmpCustomerAccount.getSecurityAccount().setBoughtStocks((ArrayList<BoughtStock>)dbManager.readBoughtStocks(tmpCustomerAccount.getSecurityAccount()));
+
+            for (Loan loan : dbManager.readLoans(person.getName().getFirstName(), person.getName().getFirstName())) {
+                tmpCustomerAccount.addNewLoan(loan);
+            }
+        }
 
     }
 }

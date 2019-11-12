@@ -13,8 +13,16 @@ public class StockMarket {
         numsOfStocks = 0;
     }
 
-    public  void addStock(String name, int totalShares, int current, float pricePerShare) {
+    public void addStock(String name, int totalShares, int current, float pricePerShare) {
         stocks.add(new Stock(pricePerShare, totalShares, current, name, "", ""));
+    }
+
+    public void loadAllStocks(DBManager dbManager){
+        addStocks((ArrayList<Stock>)dbManager.readStocks());
+    }
+
+    public void addStocks(ArrayList<Stock> stocks) {
+        this.stocks.addAll(stocks);
     }
 
     public Stock getStockByName(String name) {
