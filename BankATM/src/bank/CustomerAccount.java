@@ -241,8 +241,10 @@ public class CustomerAccount {
         return person;
     }
 
+
     public ArrayList<Transaction> getAllTransactions() {
         return transactions;
+
     }
 
     public ArrayList<Transaction> getTransactions() {

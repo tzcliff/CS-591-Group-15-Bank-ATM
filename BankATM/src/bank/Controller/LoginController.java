@@ -66,7 +66,7 @@ public class LoginController {
 		}
 		else
 		{
-			loginView.setMsgLabel("No User");
+			loginView.setMsgLabel("This user does not exist");
 		}
 		
 	}

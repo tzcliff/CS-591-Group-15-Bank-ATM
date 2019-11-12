@@ -28,6 +28,7 @@ public class ManagerSideView extends JPanel {
 	private JButton logOutButton;
 	private JButton newStock;
 	private JButton changeStock;
+	private JButton lookStock;
 
 	
 	public ManagerSideView()
@@ -37,6 +38,7 @@ public class ManagerSideView extends JPanel {
 		transactionButton = new JButton("Transaction List");
 		logOutButton = new JButton("Log out");
 		newStock = new JButton("New Stock");
+		lookStock = new JButton("The current stock market");
 		
 		this.setLayout(new GridBagLayout());
 	    GridBagConstraints gbc = new GridBagConstraints();
@@ -47,6 +49,7 @@ public class ManagerSideView extends JPanel {
 		this.add(loanListButton, gbc);
 		this.add(transactionButton, gbc);
 		this.add(newStock, gbc);
+		this.add(lookStock, gbc);
 		this.add(logOutButton, gbc);
 		
 		initialize();
@@ -88,6 +91,14 @@ public class ManagerSideView extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				StockController stockController = new StockController();
 				stockController.newStockView();
+			}
+		});
+
+		lookStock.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				StockController stockController = new StockController();
+				stockController.StockListOfManager();
 			}
 		});
 	}

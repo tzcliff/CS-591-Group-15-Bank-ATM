@@ -12,12 +12,12 @@ import java.awt.*;
         private JTable table;
         private JButton buy;
         private JButton sell;
-        private JButton stockPredict;
+        private JButton stockPeekProfit;
 
 
 
-        public JButton getStockPredict() {
-            return stockPredict;
+        public JButton getStockPeekProfit() {
+            return stockPeekProfit;
         }
 
 
@@ -41,14 +41,14 @@ import java.awt.*;
             super(new BorderLayout());
             buy = new JButton("Buy Stock");
             sell = new JButton("Sell Stock");
-            stockPredict = new JButton("Predict");
+            stockPeekProfit = new JButton("Peek profit");
             JPanel topPan = new JPanel(new BorderLayout());
             headerLabel = new JLabel("List of the stocks");
             topPan.add(headerLabel, BorderLayout.NORTH);
             topPan.add(Box.createVerticalStrut(10));
             topPan.add(buy, BorderLayout.WEST);
             topPan.add(sell, BorderLayout.CENTER);
-            topPan.add(stockPredict, BorderLayout.EAST);
+            topPan.add(stockPeekProfit, BorderLayout.EAST);
 
             add(topPan, BorderLayout.NORTH);
         }

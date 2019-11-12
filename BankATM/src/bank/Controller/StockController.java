@@ -4,23 +4,23 @@ import bank.*;
 import bank.View.*;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 public class StockController {
     private StockListView stockListView;
     private StockBuyView stockBuyView;
     private StockSellView stockSellView;
-    private StockPredict stockPredictView;
+    private StockPeekView stockPeekView;
     private ManagerStockView managerStockView;
     private changeStockView changeStockView;
     private BoughtStockView boughtStockView;
+    private ManagerStockListView managerStockListView;
     public StockController() {
         stockListView = new StockListView();
         //stockTransactionView = new StockTransactionView();
        // stockPredictView = new StockPredict();
         managerStockView = new ManagerStockView();
+        managerStockListView = new ManagerStockListView();
         //changeStockView = new changeStockView();
         initController();
     }
@@ -38,11 +38,17 @@ public class StockController {
 
     }
 
+    public void StockListOfManager() {
+        managerStockListView.setVisible(true);
+        PanelData.setParentPanel(managerStockListView);
+        bindDataManger();
+    }
+
     public void stockPredictView() {
-        stockPredictView = new StockPredict();
-        stockPredictView.getSaveButton().addActionListener(l ->predict());
-        stockPredictView.setVisible(true);
-        PanelData.setParentPanel(stockPredictView);
+        stockPeekView = new StockPeekView();
+        stockPeekView.getSaveButton().addActionListener(l ->predict());
+        stockPeekView.setVisible(true);
+        PanelData.setParentPanel(stockPeekView);
     }
 
     public void bindData(){
@@ -80,6 +86,42 @@ public class StockController {
 
         }
 
+    public void bindDataManger(){
+
+
+
+
+        String col[] = {"Stock Name","Current available share ","Total share","Price"};
+        DefaultTableModel tableModel = new DefaultTableModel(col, 0);
+
+
+
+
+        for (int i = 0; i < Data.getStockMarket().getStocks().size(); i++)
+        {
+            Object[] objs = { Data.getStockMarket().getStocks().get(i).getName(),
+                    Data.getStockMarket().getStocks().get(i).getCurrentlyAvailableShares()
+                    , Data.getStockMarket().getStocks().get(i).getTotalShares()
+                    , Data.getStockMarket().getStocks().get(i).getCurrentPrice()
+
+            };
+            tableModel.addRow(objs);
+        }
+
+
+
+
+        JTable table = new JTable(tableModel);
+        table.setFillsViewportHeight(true);
+
+
+
+        managerStockListView.setTable(table);
+
+
+    }
+
+
 
 
     public void initController()
@@ -89,7 +131,7 @@ public class StockController {
         //stockTransactionView.getSaveButton().addActionListener(l ->sellOrBuyStock());
        // stockPredictView.getSaveButton().addActionListener(l ->predict());
         managerStockView.getSaveButton().addActionListener(l ->newStock());
-        stockListView.getStockPredict().addActionListener(l ->stockPredictView());
+        stockListView.getStockPeekProfit().addActionListener(l ->stockPredictView());
         managerStockView.getChangeStockButton().addActionListener(l ->changeStockView());
         //changeStockView.getSaveButton().addActionListener(l ->changeStock());
 
@@ -97,12 +139,21 @@ public class StockController {
 
     private void changeStock () {
         String name =(String) changeStockView.getStockComboBox().getSelectedItem();
-        int totalShare = Integer.parseInt(changeStockView.getTotalShareTextField().getText());
-        int current = Integer.parseInt(changeStockView.getCurrentTextField().getText());
-        float price = Float.parseFloat(changeStockView.getPriceTextField().getText());
-        if(Data.getStockMarket().changeStockTotalShare(name, totalShare) && Data.getStockMarket().changeStockCurrentShare(name, current) && Data.getStockMarket().changeStockPrice(name, price )){
-            changeStockView.setMsgLabel("Successfully changed the attributes of the selected stock");
+        String rawTotal = changeStockView.getTotalShareTextField().getText();
+        String rawCurrent = changeStockView.getCurrentTextField().getText();
+        String rawPrice = changeStockView.getPriceTextField().getText();
+
+        if (rawTotal.equals("") || rawCurrent.equals("") || rawPrice.equals("")) {
+            changeStockView.setMsgLabel("Blank field is not allowed!");
+        } else{
+            int totalShare = Integer.parseInt(changeStockView.getTotalShareTextField().getText());
+            int current = Integer.parseInt(changeStockView.getCurrentTextField().getText());
+            float price = Float.parseFloat(changeStockView.getPriceTextField().getText());
+            if(Data.getStockMarket().changeStockTotalShare(name, totalShare) && Data.getStockMarket().changeStockCurrentShare(name, current) && Data.getStockMarket().changeStockPrice(name, price )){
+                changeStockView.setMsgLabel("Successfully changed the attributes of the selected stock");
+            }
         }
+
 
     }
 
@@ -160,24 +211,35 @@ public class StockController {
     }
 
     private void predict() {
-        String name = (String) stockPredictView.getStockBoughtc().getSelectedItem();
-        int amount = Integer.parseInt(stockPredictView.getAmountTextField().getText());
+        String name = (String) stockPeekView.getStockBoughtc().getSelectedItem();
+        int amount = Integer.parseInt(stockPeekView.getAmountTextField().getText());
         if (amount >= 0) {
             Float profit = LoggedUser.getProfile().getSecurityAccount().peekPossibleProfit(LoggedUser.getProfile().getSecurityAccount().getBoughtStockByName(name).getStock(), amount);
-            stockPredictView.setMsgLabel("The profit you can make is: " + profit);
+            stockPeekView.setMsgLabel("The profit you can make is: " + profit);
         }
         else {
-            stockPredictView.setMsgLabel("The amount must be bigger than zero");
+            stockPeekView.setMsgLabel("The amount must be bigger than zero");
         }
     }
 
     private void newStock() {
         String name = managerStockView.getNameTextField().getText();
-        int totalShare = Integer.parseInt(managerStockView.getTotalShareTextField().getText());
-        int current = Integer.parseInt(managerStockView.getCurrentAvailableShareTextField().getText());
-        float price = Float.parseFloat(managerStockView.getPriceTextField().getText());
-        Data.getStockMarket().addStock(name, totalShare, current, price);
-        managerStockView.setMsgLabel("Successfully create a new stock");
+        String rawTotal = managerStockView.getTotalShareTextField().getText();
+        String rawCurrent = managerStockView.getCurrentAvailableShareTextField().getText();
+        String rawPrice = managerStockView.getPriceTextField().getText();
+
+        if(name.equals("") || rawCurrent.equals("") || rawPrice.equals("") || rawTotal.equals("")) {
+            managerStockView.setMsgLabel("Blank field is not allowed!");
+        } else {
+
+
+            Integer totalShare = Integer.parseInt(rawTotal);
+            Integer current = Integer.parseInt(rawCurrent);
+            Float price = Float.parseFloat(rawPrice);
+            Data.getStockMarket().addStock(name, totalShare, current, price);
+            managerStockView.setMsgLabel("Successfully create a new stock");
+        }
+
 
     }
 
@@ -191,8 +253,6 @@ public class StockController {
 
     private void bindDataBoughtStock()
     {
-
-
 
             String col[] = {"Stock Name","The share you have","The Bought Price","Current Price"};
             DefaultTableModel tableModel = new DefaultTableModel(col, 0);
