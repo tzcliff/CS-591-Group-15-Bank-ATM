@@ -14,11 +14,13 @@ public class StockController {
     private ManagerStockView managerStockView;
     private changeStockView changeStockView;
     private BoughtStockView boughtStockView;
+    private ManagerStockListView managerStockListView;
     public StockController() {
         stockListView = new StockListView();
         //stockTransactionView = new StockTransactionView();
        // stockPredictView = new StockPredict();
         managerStockView = new ManagerStockView();
+        managerStockListView = new ManagerStockListView();
         //changeStockView = new changeStockView();
         initController();
     }
@@ -34,6 +36,12 @@ public class StockController {
         managerStockView.setVisible(true);
         PanelData.setParentPanel(managerStockView);
 
+    }
+
+    public void StockListOfManager() {
+        managerStockListView.setVisible(true);
+        PanelData.setParentPanel(managerStockListView);
+        bindDataManger();
     }
 
     public void stockPredictView() {
@@ -77,6 +85,42 @@ public class StockController {
 
 
         }
+
+    public void bindDataManger(){
+
+
+
+
+        String col[] = {"Stock Name","Current available share ","Total share","Price"};
+        DefaultTableModel tableModel = new DefaultTableModel(col, 0);
+
+
+
+
+        for (int i = 0; i < Data.getStockMarket().getStocks().size(); i++)
+        {
+            Object[] objs = { Data.getStockMarket().getStocks().get(i).getName(),
+                    Data.getStockMarket().getStocks().get(i).getCurrentlyAvailableShares()
+                    , Data.getStockMarket().getStocks().get(i).getTotalShares()
+                    , Data.getStockMarket().getStocks().get(i).getCurrentPrice()
+
+            };
+            tableModel.addRow(objs);
+        }
+
+
+
+
+        JTable table = new JTable(tableModel);
+        table.setFillsViewportHeight(true);
+
+
+
+        managerStockListView.setTable(table);
+
+
+    }
+
 
 
 
