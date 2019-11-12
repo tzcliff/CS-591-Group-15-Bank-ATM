@@ -61,17 +61,17 @@ public class LoanAppilcationView extends JPanel {
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridwidth = GridBagConstraints.REMAINDER;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
-		jp.add(loanTypeLabel);		
-		jp.add(loanTypeDd);
+//		jp.add(loanTypeLabel);
+//		jp.add(loanTypeDd);
 		jp.add(amountLabel);		
 		jp.add(amountTextField);
-		jp.add(termLabel);		
-		jp.add(termTextField);
-		jp.add(colateralLabel);		
-		jp.add(colateralTextField);
+//		jp.add(termLabel);
+//		jp.add(termTextField);
+//		jp.add(colateralLabel);
+//		jp.add(colateralTextField);
 		
 
-		SpringUtilities.makeCompactGrid(jp, 4, 2, //rows, cols
+		SpringUtilities.makeCompactGrid(jp, 1, 2, //rows, cols
 				6, 6, //initX, initY
 				6, 6); //xPad, yPad
 
