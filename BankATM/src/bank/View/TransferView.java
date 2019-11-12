@@ -27,6 +27,7 @@ public class TransferView extends JPanel{
     private JFormattedTextField amountTextField;
     private JButton saveButton;
     private JLabel msgLabel;
+    private JLabel tipLabel;
 
     private DecimalFormatSymbols dfs;
     private DecimalFormat dFormat;
@@ -44,6 +45,7 @@ public class TransferView extends JPanel{
 
 
         accNameLabel = new JLabel("Account Name", JLabel.TRAILING);
+        tipLabel = new JLabel("Note:The transfered money is deducted from your first checking account!!! ", JLabel.TRAILING);
         accNameDd = new JComboBox<Account>();
         accNameLabel.setLabelFor(accNameDd);
 //        for (var acc : LoggedUser.getProfile().getCheckingAccounts()) {
@@ -84,10 +86,11 @@ public class TransferView extends JPanel{
         SpringUtilities.makeCompactGrid(jp, 2, 2, //rows, cols
                 6, 6, //initX, initY
                 6, 6); //xPad, yPad
-
+        this.add(tipLabel, gbc);
         this.add(jp, gbc);
         this.add(saveButton,gbc);
         this.add(msgLabel, gbc);
+
     }
 
 

@@ -183,8 +183,9 @@ public class StockController {
         int amount = Integer.parseInt(stockBuyView.getAmountTextField().getText());
 
         int newCurrent = Data.getStockMarket().getStockByName(name).getCurrentlyAvailableShares() - amount;
-
-        if (newCurrent >= 0) {
+        if (amount <= 0) {
+            stockBuyView.setMsgLabel("Invalid number!!!!");
+        } else if (newCurrent >= 0) {
             LoggedUser.getProfile().getSecurityAccount().addNewSharesToStock(Data.getStockMarket().getStockByName(name), amount);
             Data.getStockMarket().changeStockCurrentShare(name, newCurrent);
             stockBuyView.setMsgLabel("Successfully buy stock!");
@@ -200,7 +201,9 @@ public class StockController {
         String name = (String) stockSellView.getStockc().getSelectedItem();
         int amount = Integer.parseInt(stockSellView.getAmountTextField().getText());
 
-        if (amount <= LoggedUser.getProfile().getSecurityAccount().getBoughtStockByName(name).getAmountOfStocks()) {
+        if (amount <= 0) {
+            stockSellView.setMsgLabel("Invalid number!!!!");
+        } else if (amount <= LoggedUser.getProfile().getSecurityAccount().getBoughtStockByName(name).getAmountOfStocks()) {
                 Float profit = LoggedUser.getProfile().getSecurityAccount().sellSharesOfStock(LoggedUser.getProfile().getSecurityAccount().getBoughtStockByName(name).getStock(), amount);
                 stockSellView.setMsgLabel("The profit you made is: " + profit);
 
