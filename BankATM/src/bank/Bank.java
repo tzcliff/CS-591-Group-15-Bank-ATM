@@ -168,14 +168,16 @@
  */
 package bank;
 
+import bank.MySql.DBManager;
+
 import java.util.ArrayList;
 
 public class Bank {
-    private ArrayList<CustomerAccount> customerAccounts;
+    private static ArrayList<CustomerAccount> customerAccounts = new ArrayList<CustomerAccount>();
     private BankManagerAccount bankManagerAccount;
     //private CustomerAccount currentCustomer; // The user that is currently logged in
 
-    
+
     public ArrayList<CustomerAccount> getCustomerAccounts() {
 		return customerAccounts;
 	}
@@ -183,7 +185,7 @@ public class Bank {
 
 
 	public Bank(BankManagerAccount bankManagerAccount) {
-        this.customerAccounts = new ArrayList<CustomerAccount>();
+        //this.customerAccounts = new ArrayList<CustomerAccount>();
         this.bankManagerAccount = bankManagerAccount;
     }
 
@@ -299,5 +301,96 @@ public class Bank {
                 break;
             }
         }
+    }
+
+    public void saveCustomerAccounts(DBManager dbManager){
+        for (CustomerAccount customerAccount : customerAccounts) {
+            dbManager.addPerson(customerAccount);
+        }
+        for (CustomerAccount customerAccount : customerAccounts) {
+            for (CheckingAccount checkingAccount : customerAccount.getCheckingAccounts()) {
+                dbManager.addCheckingAccount(checkingAccount, customerAccount);
+            }
+            for (SavingsAccount savingsAccount : customerAccount.getSavingsAccounts()) {
+                dbManager.addSavingAccount(savingsAccount, customerAccount);
+            }
+            dbManager.addSecurityAccount(customerAccount.getSecurityAccount(), customerAccount);
+            for (BoughtStock boughtStock : customerAccount.getSecurityAccount().getBoughtStocks()) {
+                System.out.println(boughtStock);
+                System.out.println(customerAccount.getPerson());
+                dbManager.addBoughtStock(boughtStock, customerAccount.getSecurityAccount());
+            }
+            for (Transaction transaction : customerAccount.getAllTransactions()) {
+                if (transaction instanceof Deposit){
+                    dbManager.addDeposit((Deposit)transaction);
+                }else if (transaction instanceof Withdrawal){
+                    dbManager.addWithdrawal((Withdrawal)transaction);
+                }else if (transaction instanceof Transfer){
+                    dbManager.addTransfer((Transfer)transaction);
+                }else{
+                    try {
+                        throw new Exception("Tried to save to database invalid type of transaction");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            for (Loan loan : customerAccount.getLoans()) {
+                dbManager.addLoan(loan, customerAccount);
+            }
+        }
+    }
+
+    public void loadAllTransactionsOfAccount(DBManager dbManager, CustomerAccount tmpCustomerAccount, Account account){
+        for (Deposit deposit : dbManager.readDepositsByAccount(account.getRoutingNumber(), account.getAccountNumber())) {
+            tmpCustomerAccount.addExistingDepositTransaction(deposit);
+        }
+
+        for (Withdrawal withdrawal : dbManager.readWithdrawalsByAccount(account.getRoutingNumber(), account.getAccountNumber())) {
+            tmpCustomerAccount.addExistingWithdrawalTransaction(withdrawal);
+        }
+
+        for (Transfer transfer : dbManager.readTransfersByAccount(account.getRoutingNumber(), account.getAccountNumber())) {
+            tmpCustomerAccount.addExistingTransferTransaction(transfer);
+        }
+    }
+
+    public void loadCustomerAccounts(DBManager dbManager){
+        for (Person person : dbManager.readPersons()) {
+            CustomerAccount tmpCustomerAccount = new CustomerAccount(person, true, Bank.getNewUniqueAccountNum());
+            customerAccounts.add(tmpCustomerAccount);
+
+            for (CheckingAccount checkingAccount : dbManager.readCheckingAccounts(person.getName().getFirstName(), person.getName().getLastName())) {
+                tmpCustomerAccount.addNewCheckingAccount(checkingAccount);
+                loadAllTransactionsOfAccount(dbManager, tmpCustomerAccount, checkingAccount);
+            }
+
+            for (SavingsAccount savingsAccount : dbManager.readSavingAccounts(person.getName().getFirstName(), person.getName().getLastName())) {
+                tmpCustomerAccount.addNewSavingsAccount(savingsAccount);
+                loadAllTransactionsOfAccount(dbManager, tmpCustomerAccount, savingsAccount);
+            }
+
+            tmpCustomerAccount.setSecurityAccount(dbManager.readSecurityAccounts(person.getName().getFirstName(), person.getName().getLastName()).get(0));
+
+            tmpCustomerAccount.getSecurityAccount().setBoughtStocks((ArrayList<BoughtStock>)dbManager.readBoughtStocks(tmpCustomerAccount.getSecurityAccount()));
+
+            for (Loan loan : dbManager.readLoans(person.getName().getFirstName(), person.getName().getLastName())) {
+                tmpCustomerAccount.addNewLoan(loan);
+            }
+        }
+    }
+
+    public static int getNewUniqueAccountNum(){
+        int curr = 0;
+        for(CustomerAccount customerAccount : customerAccounts){
+            for(Account account : customerAccount.getCheckingAccounts()){
+                curr = Math.max(curr, account.getAccountNumber());
+            }
+            for(Account account : customerAccount.getSavingsAccounts()){
+                curr = Math.max(curr, account.getAccountNumber());
+            }
+            curr = Math.max(curr, customerAccount.getSecurityAccount().getAccountNumber());
+        }
+        return curr + 1;
     }
 }

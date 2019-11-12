@@ -11,12 +11,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-import bank.Account;
-import bank.AccountType;
-import bank.Currency;
-import bank.LoggedUser;
-import bank.PanelData;
-import bank.TransactionType;
+import bank.*;
 import bank.View.AccountListView;
 import bank.View.AddAccountView;
 import bank.View.DepositWithdrawView;
@@ -172,10 +167,10 @@ public class AccountController {
 		{
 			if ((AccountType)((AddAccountView)addAccountView).getAccTypeDd().getSelectedItem() == AccountType.Checking)
 			{
-				LoggedUser.getProfile().addNewCheckingAccount();
+				LoggedUser.getProfile().addNewCheckingAccount(Bank.getNewUniqueAccountNum());
 			}else if ((AccountType)((AddAccountView)addAccountView).getAccTypeDd().getSelectedItem() == AccountType.Saving)
 			{
-				LoggedUser.getProfile().addNewSavingsAccount();
+				LoggedUser.getProfile().addNewSavingsAccount(Bank.getNewUniqueAccountNum());
 			}
 			((AddAccountView)addAccountView).setMsgLabel("Your account is successfully created");
 		}

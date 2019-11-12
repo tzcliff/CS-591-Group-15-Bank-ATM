@@ -25,18 +25,18 @@ public class CustomerAccount {
     private SecurityAccount securityAccount;
     private boolean collateral;
 
-    public CustomerAccount(Person person, boolean collateral) {
+    public CustomerAccount(Person person, boolean collateral, int newAccountUniqueID) {
         this.person = person;
         this.collateral = collateral;
         this.checkingAccounts = new ArrayList<CheckingAccount>();
         this.savingsAccounts = new ArrayList<SavingsAccount>();
         this.transactions = new ArrayList<Transaction>();
         this.loans= new ArrayList<Loan>();
-        securityAccount = new SecurityAccount(0.0f, 0, 0, true, new Currency("USD"), 0.0f, 0.0f);
+        securityAccount = new SecurityAccount(0.0f, 0, newAccountUniqueID, true, new Currency("USD"), 0.0f, 0.0f);
     }
 
     public CustomerAccount(Person person) {
-        this(person, true);
+        this(person, true, Bank.getNewUniqueAccountNum());
     }
 
     @Override
@@ -44,20 +44,28 @@ public class CustomerAccount {
         return person.toString();
     }
 
-    public void addNewCheckingAccount(){
+    public void addNewCheckingAccount(int newAccountUniqueID){
         Currency currency = new Currency("USD");
-        checkingAccounts.add(new CheckingAccount(0.0f, 0, CheckingAccount.getNewAccountUniqueNumber(), true, currency,
+        checkingAccounts.add(new CheckingAccount(0.0f, 0, newAccountUniqueID, true, currency,
                 0.0f, 0.0f, 0.0f,0.0f));
+    }
+
+    public void addNewCheckingAccount(CheckingAccount checkingAccount){
+        checkingAccounts.add(checkingAccount);
     }
 
     public SecurityAccount getSecurityAccount() {
         return securityAccount;
     }
 
-    public void addNewSavingsAccount(){
+    public void addNewSavingsAccount(int newAccountUniqueID){
         Currency currency = new Currency("USD");
-        savingsAccounts.add(new SavingsAccount(0.0f, 0, SavingsAccount.getNewAccountUniqueNumber(), true, currency,
+        savingsAccounts.add(new SavingsAccount(0.0f, 0, newAccountUniqueID, true, currency,
                 0.0f, 0.0f, 0.0f));
+    }
+
+    public void addNewSavingsAccount(SavingsAccount savingsAccount){
+        savingsAccounts.add(savingsAccount);
     }
 
     public boolean addNewLoan(Float amount, Currency currency){
@@ -67,6 +75,15 @@ public class CustomerAccount {
             return true;
         }
         return false;
+    }
+
+    public boolean addNewLoan(Loan loan){
+        loans.add(loan);
+        return true;
+    }
+
+    public void addExistingDepositTransaction(Deposit deposit){
+        transactions.add(deposit);
     }
 
     // Method that tries to find in this customer the account specified by receiverAccountNumber and receiverRoutingNumber to perform a deposit
@@ -115,6 +132,10 @@ public class CustomerAccount {
             }
         }
         return false;
+    }
+
+    public void addExistingWithdrawalTransaction(Withdrawal withdrawal){
+        transactions.add(withdrawal);
     }
 
     // Method that tries to find in this customer the account specified by receiverAccountNumber and receiverRoutingNumber to perform a withdrawal
@@ -177,6 +198,10 @@ public class CustomerAccount {
         return false;
     }
 
+    public void addExistingTransferTransaction(Transfer transfer){
+        transactions.add(transfer);
+    }
+
     // Method that is called if the second part of a transfer fails. The purpose of this method is to give back the money to the account
     // from which we made the transfer withdrawal and to delete the transaction from its list of transactions. I know that this may be confusing
     // feel free to contact aflpd@bu.edu for more details
@@ -214,6 +239,12 @@ public class CustomerAccount {
 
     public Person getPerson() {
         return person;
+    }
+
+
+    public ArrayList<Transaction> getAllTransactions() {
+        return transactions;
+
     }
 
     public ArrayList<Transaction> getTransactions() {
@@ -296,5 +327,9 @@ public class CustomerAccount {
             }
         }
         return false;
+    }
+
+    public void setSecurityAccount(SecurityAccount securityAccount) {
+        this.securityAccount = securityAccount;
     }
 }

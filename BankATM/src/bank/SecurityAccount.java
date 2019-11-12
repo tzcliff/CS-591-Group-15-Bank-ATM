@@ -73,4 +73,8 @@ public class SecurityAccount extends Account {
         int temp = stockExists(name);
         return boughtStocks.get(temp);
     }
+
+    public void setBoughtStocks(ArrayList<BoughtStock> boughtStocks) {
+        this.boughtStocks = boughtStocks;
+    }
 }

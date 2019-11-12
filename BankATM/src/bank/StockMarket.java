@@ -1,5 +1,7 @@
 package bank;
 
+import bank.MySql.DBManager;
+
 import java.util.ArrayList;
 
 public class StockMarket {
@@ -11,8 +13,16 @@ public class StockMarket {
         numsOfStocks = 0;
     }
 
-    public  void addStock(String name, int totalShares, int current, float pricePerShare) {
+    public void addStock(String name, int totalShares, int current, float pricePerShare) {
         stocks.add(new Stock(pricePerShare, totalShares, current, name, "", ""));
+    }
+
+    public void loadAllStocks(DBManager dbManager){
+        addStocks((ArrayList<Stock>)dbManager.readStocks());
+    }
+
+    public void addStocks(ArrayList<Stock> stocks) {
+        this.stocks.addAll(stocks);
     }
 
     public Stock getStockByName(String name) {
@@ -70,5 +80,11 @@ public class StockMarket {
 
     public  ArrayList<Stock> getStocks() {
         return stocks;
+    }
+
+    public void saveStocks(DBManager dbManager){
+        for (Stock stock : stocks) {
+            dbManager.addStock(stock);
+        }
     }
 }
