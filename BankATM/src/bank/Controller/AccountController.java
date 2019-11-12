@@ -67,87 +67,98 @@ public class AccountController {
 	private void AddTransaction() {
 
 		boolean isAllowed = true;
+		Float amount = Float.parseFloat(((DepositWithdrawView)depositWView).getAmountTextField().getText());
+		if(amount > 0) {
+			for (Account acc : LoggedUser.getProfile().getCheckingAccounts()) {
+
+				//System.out.println(((DepositWithdrawView)depositWView).getAccNameDd().getSelectedItem());
 
 
-		//LoggedUser.getProfile().depositAmount(01, 1, receiverAccountNumber, receiverRoutingNumber)
-		// CustomerAccount
-		for (Account acc : LoggedUser.getProfile().getCheckingAccounts()) {
 
-			System.out.println(((DepositWithdrawView)depositWView).getAccNameDd().getSelectedItem());
-			if (acc.equals(((DepositWithdrawView)depositWView).getAccNameDd().getSelectedItem()))
-			{
-				if (((DepositWithdrawView)depositWView).getTransTypeDd().getSelectedItem() == TransactionType.Deposit)
+				if (acc.equals(((DepositWithdrawView)depositWView).getAccNameDd().getSelectedItem()))
 				{
-					if (LoggedUser.getProfile().depositAmount(Float.parseFloat(((DepositWithdrawView)depositWView).getAmountTextField().getText()), 
-							new Currency("USD"), acc.getAccountNumber(), acc.getRoutingNumber())) {
-
+					if (((DepositWithdrawView)depositWView).getTransTypeDd().getSelectedItem() == TransactionType.Deposit)
+					{
+						if (!LoggedUser.getProfile().depositAmount(Float.parseFloat(((DepositWithdrawView)depositWView).getAmountTextField().getText()),
+								new Currency("USD"), acc.getAccountNumber(), acc.getRoutingNumber())) {
+									isAllowed = false;
+									((DepositWithdrawView)depositWView).setMsgLabel("Your transaction is not allowed (Not enough fund)");
+						}
+						//acc.de(acc.getAmount() +
+						//		Float.parseFloat(((DepositWithdrawView)depositWView).getAmountTextField().getText()));
+					}else
+					{
+						if (!LoggedUser.getProfile().withdrawAmount(Float.parseFloat(((DepositWithdrawView)depositWView).getAmountTextField().getText()),
+								new Currency("USD"), acc.getAccountNumber(), acc.getRoutingNumber())) {
+							((DepositWithdrawView)depositWView).setMsgLabel("Your transaction is not allowed (Not enough fund)");
+							isAllowed = false;
+						}
 					}
-					//acc.de(acc.getAmount() + 
-					//		Float.parseFloat(((DepositWithdrawView)depositWView).getAmountTextField().getText()));
-				}else
-				{
-					if (!LoggedUser.getProfile().withdrawAmount(Float.parseFloat(((DepositWithdrawView)depositWView).getAmountTextField().getText()), 
-							new Currency("USD"), acc.getAccountNumber(), acc.getRoutingNumber())) {
-						((DepositWithdrawView)depositWView).setMsgLabel("Your transaction is not allowed (Not enough fund)");
+					if (isAllowed)
+					{
+						//Transaction trans = new Transaction();
+						//trans.setAmount(Long.parseLong(((DepositWithdrawView)depositWView).getAmountTextField().getText()));
+						//trans.setTransactionDate(new Date());
+						//trans.setTransactionBy(LoggedUser.getProfile());
+						//trans.setTransactionId(UUID.randomUUID().toString());
+						//trans.setType((TransactionType)((DepositWithdrawView)depositWView).getTransTypeDd().getSelectedItem());
+						//trans.setAccountUsed((Account)((DepositWithdrawView)depositWView).getAccNameDd().getSelectedItem());
+						//Data.AddTransaction(trans);
+						//acc.addTransactionList(trans);
+
+						((DepositWithdrawView)depositWView).setMsgLabel("Your transaction is successfull");
 					}
-				}
-				if (isAllowed)
-				{
-					//Transaction trans = new Transaction();
-					//trans.setAmount(Long.parseLong(((DepositWithdrawView)depositWView).getAmountTextField().getText()));
-					//trans.setTransactionDate(new Date());
-					//trans.setTransactionBy(LoggedUser.getProfile());
-					//trans.setTransactionId(UUID.randomUUID().toString());
-					//trans.setType((TransactionType)((DepositWithdrawView)depositWView).getTransTypeDd().getSelectedItem());
-					//trans.setAccountUsed((Account)((DepositWithdrawView)depositWView).getAccNameDd().getSelectedItem());
-					//Data.AddTransaction(trans);
-					//acc.addTransactionList(trans);
 
-					((DepositWithdrawView)depositWView).setMsgLabel("Your transaction is successfull");
+					break;
 				}
-
-				break;
 			}
-		}
-		
-		for (Account acc : LoggedUser.getProfile().getSavingsAccounts()) {
 
-			System.out.println(((DepositWithdrawView)depositWView).getAccNameDd().getSelectedItem());
-			if (acc.equals(((DepositWithdrawView)depositWView).getAccNameDd().getSelectedItem()))
-			{
-				if (((DepositWithdrawView)depositWView).getTransTypeDd().getSelectedItem() == TransactionType.Deposit)
+			for (Account acc : LoggedUser.getProfile().getSavingsAccounts()) {
+
+				System.out.println(((DepositWithdrawView)depositWView).getAccNameDd().getSelectedItem());
+				if (acc.equals(((DepositWithdrawView)depositWView).getAccNameDd().getSelectedItem()))
 				{
-					if (LoggedUser.getProfile().depositAmount(Float.parseFloat(((DepositWithdrawView)depositWView).getAmountTextField().getText()), 
-							new Currency("USD"), acc.getAccountNumber(), acc.getRoutingNumber())) {
-						
+					if (((DepositWithdrawView)depositWView).getTransTypeDd().getSelectedItem() == TransactionType.Deposit)
+					{
+						if (!LoggedUser.getProfile().depositAmount(Float.parseFloat(((DepositWithdrawView)depositWView).getAmountTextField().getText()),
+								new Currency("USD"), acc.getAccountNumber(), acc.getRoutingNumber())) {
+								((DepositWithdrawView)depositWView).setMsgLabel("Your transaction is not allowed (not enough fund)");
+								isAllowed = false;
+						}
+						//acc.de(acc.getAmount() +
+						//		Float.parseFloat(((DepositWithdrawView)depositWView).getAmountTextField().getText()));
+					}else
+					{
+						if (!LoggedUser.getProfile().withdrawAmount(Float.parseFloat(((DepositWithdrawView)depositWView).getAmountTextField().getText()),
+								new Currency("USD"), acc.getAccountNumber(), acc.getRoutingNumber())) {
+								((DepositWithdrawView)depositWView).setMsgLabel("Your transaction is not allowed (not enough fund)");
+								isAllowed = false;
+						}
 					}
-					//acc.de(acc.getAmount() + 
-					//		Float.parseFloat(((DepositWithdrawView)depositWView).getAmountTextField().getText()));
-				}else
-				{
-					if (!LoggedUser.getProfile().withdrawAmount(Float.parseFloat(((DepositWithdrawView)depositWView).getAmountTextField().getText()), 
-							new Currency("USD"), acc.getAccountNumber(), acc.getRoutingNumber())) {
-						((DepositWithdrawView)depositWView).setMsgLabel("Your transaction is not allowed (not enough fund)");
+					if (isAllowed)
+					{
+						//Transaction trans = new Transaction();
+						//trans.setAmount(Long.parseLong(((DepositWithdrawView)depositWView).getAmountTextField().getText()));
+						//trans.setTransactionDate(new Date());
+						//trans.setTransactionBy(LoggedUser.getProfile());
+						//trans.setTransactionId(UUID.randomUUID().toString());
+						//trans.setType((TransactionType)((DepositWithdrawView)depositWView).getTransTypeDd().getSelectedItem());
+						//trans.setAccountUsed((Account)((DepositWithdrawView)depositWView).getAccNameDd().getSelectedItem());
+						//Data.AddTransaction(trans);
+						//acc.addTransactionList(trans);
+
+						((DepositWithdrawView)depositWView).setMsgLabel("Your transaction is successfull");
 					}
-				}
-				if (isAllowed)
-				{
-					//Transaction trans = new Transaction();
-					//trans.setAmount(Long.parseLong(((DepositWithdrawView)depositWView).getAmountTextField().getText()));
-					//trans.setTransactionDate(new Date());
-					//trans.setTransactionBy(LoggedUser.getProfile());
-					//trans.setTransactionId(UUID.randomUUID().toString());
-					//trans.setType((TransactionType)((DepositWithdrawView)depositWView).getTransTypeDd().getSelectedItem());
-					//trans.setAccountUsed((Account)((DepositWithdrawView)depositWView).getAccNameDd().getSelectedItem());
-					//Data.AddTransaction(trans);
-					//acc.addTransactionList(trans);
 
-					((DepositWithdrawView)depositWView).setMsgLabel("Your transaction is successfull");
+					break;
 				}
-
-				break;
 			}
+
 		}
+		else {
+			((DepositWithdrawView)depositWView).setMsgLabel("Your transaction is not allowed (invalid amount)");
+		}
+
 
 
 

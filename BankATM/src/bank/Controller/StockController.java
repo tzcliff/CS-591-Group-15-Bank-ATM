@@ -139,12 +139,21 @@ public class StockController {
 
     private void changeStock () {
         String name =(String) changeStockView.getStockComboBox().getSelectedItem();
-        int totalShare = Integer.parseInt(changeStockView.getTotalShareTextField().getText());
-        int current = Integer.parseInt(changeStockView.getCurrentTextField().getText());
-        float price = Float.parseFloat(changeStockView.getPriceTextField().getText());
-        if(Data.getStockMarket().changeStockTotalShare(name, totalShare) && Data.getStockMarket().changeStockCurrentShare(name, current) && Data.getStockMarket().changeStockPrice(name, price )){
-            changeStockView.setMsgLabel("Successfully changed the attributes of the selected stock");
+        String rawTotal = changeStockView.getTotalShareTextField().getText();
+        String rawCurrent = changeStockView.getCurrentTextField().getText();
+        String rawPrice = changeStockView.getPriceTextField().getText();
+
+        if (rawTotal.equals("") || rawCurrent.equals("") || rawPrice.equals("")) {
+            changeStockView.setMsgLabel("Blank field is not allowed!");
+        } else{
+            int totalShare = Integer.parseInt(changeStockView.getTotalShareTextField().getText());
+            int current = Integer.parseInt(changeStockView.getCurrentTextField().getText());
+            float price = Float.parseFloat(changeStockView.getPriceTextField().getText());
+            if(Data.getStockMarket().changeStockTotalShare(name, totalShare) && Data.getStockMarket().changeStockCurrentShare(name, current) && Data.getStockMarket().changeStockPrice(name, price )){
+                changeStockView.setMsgLabel("Successfully changed the attributes of the selected stock");
+            }
         }
+
 
     }
 
@@ -215,11 +224,22 @@ public class StockController {
 
     private void newStock() {
         String name = managerStockView.getNameTextField().getText();
-        int totalShare = Integer.parseInt(managerStockView.getTotalShareTextField().getText());
-        int current = Integer.parseInt(managerStockView.getCurrentAvailableShareTextField().getText());
-        float price = Float.parseFloat(managerStockView.getPriceTextField().getText());
-        Data.getStockMarket().addStock(name, totalShare, current, price);
-        managerStockView.setMsgLabel("Successfully create a new stock");
+        String rawTotal = managerStockView.getTotalShareTextField().getText();
+        String rawCurrent = managerStockView.getCurrentAvailableShareTextField().getText();
+        String rawPrice = managerStockView.getPriceTextField().getText();
+
+        if(name.equals("") || rawCurrent.equals("") || rawPrice.equals("") || rawTotal.equals("")) {
+            managerStockView.setMsgLabel("Blank field is not allowed!");
+        } else {
+
+
+            Integer totalShare = Integer.parseInt(rawTotal);
+            Integer current = Integer.parseInt(rawCurrent);
+            Float price = Float.parseFloat(rawPrice);
+            Data.getStockMarket().addStock(name, totalShare, current, price);
+            managerStockView.setMsgLabel("Successfully create a new stock");
+        }
+
 
     }
 

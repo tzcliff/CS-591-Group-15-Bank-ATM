@@ -28,8 +28,9 @@ public class TransferController {
 
 
                 if (acc.equals(transferView.getAccNameDd().getSelectedItem())) {
-
-                    if (LoggedUser.getProfile().withdrawTransferAmount(Float.parseFloat(transferView.getAmountTextField().getText()), new Currency("USD"), LoggedUser.getProfile().getCheckingAccounts().get(0).getAccountNumber(), LoggedUser.getProfile().getCheckingAccounts().get(0).getRoutingNumber(), acc.getAccountNumber(), acc.getRoutingNumber())) {
+                    if (Float.parseFloat(transferView.getAmountTextField().getText()) <= 0) {
+                        transferView.setMsgLabel("Your transaction is not allowed (negative number)");
+                    } else if (LoggedUser.getProfile().withdrawTransferAmount(Float.parseFloat(transferView.getAmountTextField().getText()), new Currency("USD"), LoggedUser.getProfile().getCheckingAccounts().get(0).getAccountNumber(), LoggedUser.getProfile().getCheckingAccounts().get(0).getRoutingNumber(), acc.getAccountNumber(), acc.getRoutingNumber())) {
                         Data.getBank().getCustomerAccounts().get(i).depositTransferAmount(Float.parseFloat(transferView.getAmountTextField().getText()), new Currency("USD"), LoggedUser.getProfile().getCheckingAccounts().get(0).getAccountNumber(), LoggedUser.getProfile().getCheckingAccounts().get(0).getRoutingNumber(), acc.getAccountNumber(), acc.getRoutingNumber());
                         transferView.setMsgLabel("Your transaction is successful");
                     } else {
@@ -44,9 +45,11 @@ public class TransferController {
 
                 if (acc.equals(transferView.getAccNameDd().getSelectedItem())) {
 
-                    if (LoggedUser.getProfile().withdrawTransferAmount(Float.parseFloat(transferView.getAmountTextField().getText()), new Currency("USD"), LoggedUser.getProfile().getCheckingAccounts().get(0).getAccountNumber(), LoggedUser.getProfile().getCheckingAccounts().get(0).getRoutingNumber(), acc.getAccountNumber(), acc.getRoutingNumber())) {
+                    if (Float.parseFloat(transferView.getAmountTextField().getText()) <= 0) {
+                        transferView.setMsgLabel("Your transaction is not allowed (negative number)");
+                    } else if (LoggedUser.getProfile().withdrawTransferAmount(Float.parseFloat(transferView.getAmountTextField().getText()), new Currency("USD"), LoggedUser.getProfile().getCheckingAccounts().get(0).getAccountNumber(), LoggedUser.getProfile().getCheckingAccounts().get(0).getRoutingNumber(), acc.getAccountNumber(), acc.getRoutingNumber())) {
                         Data.getBank().getCustomerAccounts().get(i).depositTransferAmount(Float.parseFloat(transferView.getAmountTextField().getText()), new Currency("USD"), LoggedUser.getProfile().getCheckingAccounts().get(0).getAccountNumber(), LoggedUser.getProfile().getCheckingAccounts().get(0).getRoutingNumber(), acc.getAccountNumber(), acc.getRoutingNumber());
-                        transferView.setMsgLabel("Your transaction is successfull");
+                        transferView.setMsgLabel("Your transaction is successful");
                     } else {
                         transferView.setMsgLabel("Your transaction is not allowed (Not enough fund)");
                     }
