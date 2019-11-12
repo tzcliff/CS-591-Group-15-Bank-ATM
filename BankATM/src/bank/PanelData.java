@@ -30,7 +30,7 @@ public class PanelData {
 		headerPanel = new JPanel();
 		
 		
-		headerPanel.setBackground(Color.GREEN);
+		headerPanel.setBackground(Color.PINK);
 		frame.getContentPane().add(headerPanel, BorderLayout.NORTH);
 		
 		JLabel lblNewLabel = new JLabel("Welcome to Fancy Bank ");
@@ -40,7 +40,7 @@ public class PanelData {
 		flowLayouthead.setHgap(50);		
 		frame.getContentPane().add(parentPanel, BorderLayout.CENTER);		
 		
-		sidePanel.setBackground(Color.GREEN);
+		sidePanel.setBackground(Color.PINK);
 		FlowLayout flowLayout = (FlowLayout) sidePanel.getLayout();
 		flowLayout.setVgap(10);
 		flowLayout.setHgap(20);
@@ -96,7 +96,7 @@ public class PanelData {
 		sidePanel.removeAll();
 		sidePanel.revalidate();
 		sidePanel.repaint();
-		sidePanel.setBackground(Color.GREEN);
+		sidePanel.setBackground(Color.WHITE);
 		sidePanel.add(panel, BorderLayout.WEST);
 	}
 
