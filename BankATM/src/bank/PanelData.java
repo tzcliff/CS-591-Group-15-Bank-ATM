@@ -51,12 +51,17 @@ public class PanelData {
 			@Override
 			public void windowClosing(WindowEvent e)
 			{
-				dbManager.deleteAccount();
-				dbManager.deletePerson();
 				dbManager.deleteBoughtStock();
-				dbManager.deleteStock();
-				dbManager.deleteLoan();
 				dbManager.deleteTransaction();
+
+				dbManager.deleteAccount();
+				dbManager.deleteLoan();
+
+				dbManager.deleteStock();
+
+
+
+				dbManager.deletePerson();
 
 
 

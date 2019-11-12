@@ -229,11 +229,11 @@ public class Bank {
         ArrayList<Transaction> transactions = new ArrayList<Transaction>();
         for (CustomerAccount customerAccount :
                 customerAccounts) {
-            for (Transaction transaction :
-                    customerAccount.getTransactions()) {
-
-            }
-            transactions.addAll(customerAccount.getTransactions());
+//            for (Transaction transaction :
+//                    customerAccount.getTransactions()) {
+//
+//            }
+            transactions.addAll(customerAccount.getAllTransactions());
         }
         return transactions;
     }
@@ -316,8 +316,6 @@ public class Bank {
             }
             dbManager.addSecurityAccount(customerAccount.getSecurityAccount(), customerAccount);
             for (BoughtStock boughtStock : customerAccount.getSecurityAccount().getBoughtStocks()) {
-                System.out.println(boughtStock);
-                System.out.println(customerAccount.getPerson());
                 dbManager.addBoughtStock(boughtStock, customerAccount.getSecurityAccount());
             }
             for (Transaction transaction : customerAccount.getAllTransactions()) {

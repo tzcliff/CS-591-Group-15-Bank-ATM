@@ -71,7 +71,7 @@ public class CustomerAccount {
     public boolean addNewLoan(Float amount, Currency currency){
         if (collateral){
             //Currency currency = new Currency("USD");
-            loans.add(new Loan(currency, 0.0f, amount));
+            loans.add(new Loan(currency, 5.5f, amount));
             return true;
         }
         return false;
