@@ -115,7 +115,23 @@ public class DBManager {
         return list;
     }
 
+    public List<Loan> readLoans(String firstName, String lastName){
+        List<Loan> list = new ArrayList<>();
 
+        try {
+            Statement stmt=con.createStatement();
+            String sql = "SELECT * FROM bank_atm.loan WHERE owner = \'"+firstName + " " + lastName+"\'";
+            System.out.println(sql);
+            ResultSet rs=stmt.executeQuery(sql);
+            Loan temp;
+            while(rs.next()) {
+                temp = new Loan(new Currency("USD"), rs.getFloat("interest"), rs.getFloat("initial_amount"));
+                list.add(temp);
+            }
+        }
+        catch(Exception e){ System.out.println(e);}
+        return list;
+    }
 
 
 
