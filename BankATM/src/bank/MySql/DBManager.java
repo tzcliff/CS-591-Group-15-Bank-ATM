@@ -149,7 +149,7 @@ public class DBManager {
             CheckingAccount temp;
             while(rs.next()) {
 
-                temp = new CheckingAccount(rs.getFloat(1), rs.getInt("routing_num"), rs.getInt("acc_num"), rs.getBoolean("active"), new Currency("USD")
+                temp = new CheckingAccount(rs.getFloat("balance"), rs.getInt("routing_num"), rs.getInt("acc_num"), rs.getBoolean("active"), new Currency("USD")
                         , rs.getFloat("close_fee"), rs.getFloat("open_fee"), rs.getFloat("transaction_fee"), rs.getFloat("withdrawal_fee"));
                 list.add(temp);
             }
@@ -171,7 +171,7 @@ public class DBManager {
             SavingsAccount temp;
             while(rs.next()) {
 
-                temp = new SavingsAccount(rs.getFloat(1), rs.getInt("routing_num"), rs.getInt("acc_num"), rs.getBoolean("active"), new Currency("USD")
+                temp = new SavingsAccount(rs.getFloat("balance"), rs.getInt("routing_num"), rs.getInt("acc_num"), rs.getBoolean("active"), new Currency("USD")
                         , rs.getFloat("close_fee"), rs.getFloat("open_fee"), rs.getFloat("interest"));
                 list.add(temp);
             }
@@ -193,7 +193,7 @@ public class DBManager {
             SecurityAccount temp;
             while(rs.next()) {
 
-                temp = new SecurityAccount(rs.getFloat(1), rs.getInt("routing_num"), rs.getInt("acc_num"), rs.getBoolean("active"), new Currency("USD")
+                temp = new SecurityAccount(rs.getFloat("balance"), rs.getInt("routing_num"), rs.getInt("acc_num"), rs.getBoolean("active"), new Currency("USD")
                         , rs.getFloat("close_fee"), rs.getFloat("open_fee"));
 
                 list.add(temp);

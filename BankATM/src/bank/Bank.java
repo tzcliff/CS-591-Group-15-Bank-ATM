@@ -173,11 +173,11 @@ import bank.MySql.DBManager;
 import java.util.ArrayList;
 
 public class Bank {
-    private ArrayList<CustomerAccount> customerAccounts;
+    private static ArrayList<CustomerAccount> customerAccounts = new ArrayList<CustomerAccount>();
     private BankManagerAccount bankManagerAccount;
     //private CustomerAccount currentCustomer; // The user that is currently logged in
 
-    
+
     public ArrayList<CustomerAccount> getCustomerAccounts() {
 		return customerAccounts;
 	}
@@ -185,7 +185,7 @@ public class Bank {
 
 
 	public Bank(BankManagerAccount bankManagerAccount) {
-        this.customerAccounts = new ArrayList<CustomerAccount>();
+        //this.customerAccounts = new ArrayList<CustomerAccount>();
         this.bankManagerAccount = bankManagerAccount;
     }
 
@@ -312,6 +312,8 @@ public class Bank {
             }
             dbManager.addSecurityAccount(customerAccount.getSecurityAccount(), customerAccount);
             for (BoughtStock boughtStock : customerAccount.getSecurityAccount().getBoughtStocks()) {
+                System.out.println(boughtStock);
+                System.out.println(customerAccount.getPerson());
                 dbManager.addBoughtStock(boughtStock, customerAccount.getSecurityAccount());
             }
             for (Transaction transaction : customerAccount.getAllTransactions()) {
@@ -351,27 +353,40 @@ public class Bank {
 
     public void loadCustomerAccounts(DBManager dbManager){
         for (Person person : dbManager.readPersons()) {
-            CustomerAccount tmpCustomerAccount = new CustomerAccount(person, true);
+            CustomerAccount tmpCustomerAccount = new CustomerAccount(person, true, Bank.getNewUniqueAccountNum());
             customerAccounts.add(tmpCustomerAccount);
 
-            for (CheckingAccount checkingAccount : dbManager.readCheckingAccounts(person.getName().getFirstName(), person.getName().getFirstName())) {
+            for (CheckingAccount checkingAccount : dbManager.readCheckingAccounts(person.getName().getFirstName(), person.getName().getLastName())) {
                 tmpCustomerAccount.addNewCheckingAccount(checkingAccount);
                 loadAllTransactionsOfAccount(dbManager, tmpCustomerAccount, checkingAccount);
             }
 
-            for (SavingsAccount savingsAccount : dbManager.readSavingAccounts(person.getName().getFirstName(), person.getName().getFirstName())) {
+            for (SavingsAccount savingsAccount : dbManager.readSavingAccounts(person.getName().getFirstName(), person.getName().getLastName())) {
                 tmpCustomerAccount.addNewSavingsAccount(savingsAccount);
                 loadAllTransactionsOfAccount(dbManager, tmpCustomerAccount, savingsAccount);
             }
 
-            tmpCustomerAccount.setSecurityAccount(dbManager.readSecurityAccounts(person.getName().getFirstName(), person.getName().getFirstName()).get(0));
+            tmpCustomerAccount.setSecurityAccount(dbManager.readSecurityAccounts(person.getName().getFirstName(), person.getName().getLastName()).get(0));
 
             tmpCustomerAccount.getSecurityAccount().setBoughtStocks((ArrayList<BoughtStock>)dbManager.readBoughtStocks(tmpCustomerAccount.getSecurityAccount()));
 
-            for (Loan loan : dbManager.readLoans(person.getName().getFirstName(), person.getName().getFirstName())) {
+            for (Loan loan : dbManager.readLoans(person.getName().getFirstName(), person.getName().getLastName())) {
                 tmpCustomerAccount.addNewLoan(loan);
             }
         }
+    }
 
+    public static int getNewUniqueAccountNum(){
+        int curr = 0;
+        for(CustomerAccount customerAccount : customerAccounts){
+            for(Account account : customerAccount.getCheckingAccounts()){
+                curr = Math.max(curr, account.getAccountNumber());
+            }
+            for(Account account : customerAccount.getSavingsAccounts()){
+                curr = Math.max(curr, account.getAccountNumber());
+            }
+            curr = Math.max(curr, customerAccount.getSecurityAccount().getAccountNumber());
+        }
+        return curr + 1;
     }
 }

@@ -16,7 +16,7 @@
 package bank;
 
 public abstract class Account {
-    private static int accountUniqueID = 0;
+    //private static int accountUniqueID = 0;
     protected Float balanceInLocalCurrency;
     protected int routingNumber;
     protected int accountNumber;
@@ -110,9 +110,9 @@ public abstract class Account {
         balanceInLocalCurrency += amount;
     }
 
-    public static int getNewAccountUniqueNumber(){
-        return accountUniqueID++;
-    }
+//    public static int getNewAccountUniqueNumber(){
+//        return accountUniqueID++;
+//    }
 
     @Override
     public String toString() {
@@ -134,10 +134,10 @@ public abstract class Account {
         this.currency = currency;
     }
     
-    public boolean equals(Account o) { 
-		if (o.accountUniqueID == accountUniqueID )
-			return true;
-		
-		return false;
-	}
+//    public boolean equals(Account o) {
+//		if (o.accountUniqueID == accountUniqueID )
+//			return true;
+//
+//		return false;
+//	}
 }

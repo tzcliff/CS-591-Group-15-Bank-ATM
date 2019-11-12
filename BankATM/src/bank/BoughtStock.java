@@ -67,4 +67,13 @@ public class BoughtStock {
     public Float returnBoughtPrice() {
         return totalAmountSpentOnBuying / sharesAmount;
     }
+
+    @Override
+    public String toString() {
+        return "BoughtStock{" +
+                "stock=" + stock +
+                ", sharesAmount=" + sharesAmount +
+                ", totalAmountSpentOnBuying=" + totalAmountSpentOnBuying +
+                '}';
+    }
 }

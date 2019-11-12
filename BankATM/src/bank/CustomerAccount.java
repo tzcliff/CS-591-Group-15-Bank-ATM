@@ -25,18 +25,18 @@ public class CustomerAccount {
     private SecurityAccount securityAccount;
     private boolean collateral;
 
-    public CustomerAccount(Person person, boolean collateral) {
+    public CustomerAccount(Person person, boolean collateral, int newAccountUniqueID) {
         this.person = person;
         this.collateral = collateral;
         this.checkingAccounts = new ArrayList<CheckingAccount>();
         this.savingsAccounts = new ArrayList<SavingsAccount>();
         this.transactions = new ArrayList<Transaction>();
         this.loans= new ArrayList<Loan>();
-        securityAccount = new SecurityAccount(0.0f, 0, Account.getNewAccountUniqueNumber(), true, new Currency("USD"), 0.0f, 0.0f);
+        securityAccount = new SecurityAccount(0.0f, 0, newAccountUniqueID, true, new Currency("USD"), 0.0f, 0.0f);
     }
 
     public CustomerAccount(Person person) {
-        this(person, true);
+        this(person, true, Bank.getNewUniqueAccountNum());
     }
 
     @Override
@@ -44,9 +44,9 @@ public class CustomerAccount {
         return person.toString();
     }
 
-    public void addNewCheckingAccount(){
+    public void addNewCheckingAccount(int newAccountUniqueID){
         Currency currency = new Currency("USD");
-        checkingAccounts.add(new CheckingAccount(0.0f, 0, CheckingAccount.getNewAccountUniqueNumber(), true, currency,
+        checkingAccounts.add(new CheckingAccount(0.0f, 0, newAccountUniqueID, true, currency,
                 0.0f, 0.0f, 0.0f,0.0f));
     }
 
@@ -58,9 +58,9 @@ public class CustomerAccount {
         return securityAccount;
     }
 
-    public void addNewSavingsAccount(){
+    public void addNewSavingsAccount(int newAccountUniqueID){
         Currency currency = new Currency("USD");
-        savingsAccounts.add(new SavingsAccount(0.0f, 0, SavingsAccount.getNewAccountUniqueNumber(), true, currency,
+        savingsAccounts.add(new SavingsAccount(0.0f, 0, newAccountUniqueID, true, currency,
                 0.0f, 0.0f, 0.0f));
     }
 

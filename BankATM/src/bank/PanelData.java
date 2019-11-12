@@ -60,8 +60,8 @@ public class PanelData {
 
 
 
-				Data.getBank().saveCustomerAccounts(dbManager);
 				Data.getStockMarket().saveStocks(dbManager);
+				Data.getBank().saveCustomerAccounts(dbManager);
 				System.out.println("Closed");
 				e.getWindow().dispose();
 			}
