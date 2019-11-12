@@ -63,6 +63,7 @@ public class DBManager {
     }
 
     public void addDeposit(Deposit transaction){
+
         String sql = "INSERT INTO bank_atm.transaction (sender_acc_num, sender_routing_num, rec_acc_num, rec_routing_num, currency, amount, type) VALUES (\'" +transaction.getSenderAccountNumber()+ "\', \'"+ transaction.getSenderRoutingNumber()+"\', \'" + transaction.getReceiverAccountNumber()+ "\', \'"+transaction.getReceiverRoutingNumber()+"\', \'"+transaction.getCurrency().toString()+"\', \'"+transaction.getAmount()+"\', \'D\');";
         System.out.println(sql);
         sqlExecute(sql);
@@ -93,6 +94,31 @@ public class DBManager {
 
 
     // SELECT
+    public List<Person> readPerson(){
+        List<Person> list = new ArrayList<>();
+
+
+        try {
+            Statement stmt=con.createStatement();
+            String sql = "SELECT * FROM bank_atm.person";
+            System.out.println(sql);
+            ResultSet rs=stmt.executeQuery(sql);
+            Person temp;
+            while(rs.next()) {
+                String name = rs.getString("name");
+                String[] names = name.split(" ");
+                temp = new Person(names[0], names[1]);
+                list.add(temp);
+            }
+        }
+        catch(Exception e){ System.out.println(e);}
+        return list;
+    }
+
+
+
+
+
     public List<CheckingAccount> readCheckingAccounts(String firstName, String lastName){
         List<CheckingAccount> list = new ArrayList<>();
 
@@ -210,6 +236,64 @@ public class DBManager {
                 String stock_name = rs.getString("stock_name");
                 Stock stock = readStockByName(stock_name);
                 temp = new BoughtStock(stock, rs.getInt("share_amount"));
+
+                list.add(temp);
+            }
+        }
+        catch(Exception e){ System.out.println(e);}
+        return list;
+    }
+
+
+    public List<Deposit> readDepositsByAccount(int routing_num, int acc_num){
+        List<Deposit> list = new ArrayList<>();
+        try {
+            Statement stmt=con.createStatement();
+            String sql = "select * from transaction WHERE type = \'D\' AND rec_acc_num = \'"+ acc_num +"\' AND  rec_routing_num = \'" + routing_num +"\'";
+            System.out.println(sql);
+            ResultSet rs=stmt.executeQuery(sql);
+            Deposit temp;
+
+            while(rs.next()) {
+                temp = new Deposit(rs.getFloat("amount"), new Currency(rs.getString("currency")),rs.getInt("rec_acc_num"), rs.getInt("rec_routing_num"));
+
+                list.add(temp);
+            }
+        }
+        catch(Exception e){ System.out.println(e);}
+        return list;
+    }
+
+    public List<Withdrawal> readWithdrawalsByAccount(int routing_num, int acc_num){
+        List<Withdrawal> list = new ArrayList<>();
+        try {
+            Statement stmt=con.createStatement();
+            String sql = "select * from transaction WHERE type = \'W\' AND sender_acc_num = \'"+ acc_num +"\' AND sender_routing_num = \'" + routing_num +"\'";
+            System.out.println(sql);
+            ResultSet rs=stmt.executeQuery(sql);
+            Withdrawal temp;
+
+            while(rs.next()) {
+                temp = new Withdrawal(rs.getFloat("amount"), new Currency(rs.getString("currency")),rs.getInt("sender_acc_num"), rs.getInt("sender_routing_num"));
+
+                list.add(temp);
+            }
+        }
+        catch(Exception e){ System.out.println(e);}
+        return list;
+    }
+
+    public List<Transfer> readTransfersByAccount(int routing_num, int acc_num){
+        List<Transfer> list = new ArrayList<>();
+        try {
+            Statement stmt=con.createStatement();
+            String sql = "select * from transaction WHERE type = \'T\' AND (sender_acc_num = \'"+ acc_num +"\' AND sender_routing_num = \'" + routing_num +"\') OR (rec_acc_num = \'"+ acc_num +"\' AND  rec_routing_num = \'" + routing_num +"\')";
+            System.out.println(sql);
+            ResultSet rs=stmt.executeQuery(sql);
+            Transfer temp;
+
+            while(rs.next()) {
+                temp = new Transfer(rs.getFloat("amount"), new Currency(rs.getString("currency")), rs.getInt("sender_acc_num"), rs.getInt("sender_routing_num"),rs.getInt("rec_acc_num"), rs.getInt("rec_routing_num"));
 
                 list.add(temp);
             }
